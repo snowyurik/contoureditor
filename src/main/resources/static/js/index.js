@@ -25036,12 +25036,63 @@ var contoureditor;
 (function (contoureditor) {
     var CanvasWrapper = /** @class */ (function (_super) {
         __extends(CanvasWrapper, _super);
-        function CanvasWrapper() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function CanvasWrapper(props) {
+            var _this = _super.call(this, props) || this;
+            _this.tempVertexes = [];
+            _this.click = _this.click.bind(_this);
+            return _this;
         }
+        CanvasWrapper.prototype.componentDidMount = function () {
+            this.canvasElement = this.refs.canvas;
+            if (!(this.canvasCtx = this.canvasElement.getContext('2d'))) {
+                throw "Canvas not initialized";
+            }
+            //             this.tempVertices = [];
+            this.redraw();
+        };
+        CanvasWrapper.prototype.redraw = function () {
+            var ctx = this.canvasCtx;
+            ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+            ctx.rect(10, 10, 150, 100);
+            ctx.stroke();
+            ctx.beginPath();
+            var first = true;
+            for (var key in this.tempVertexes) {
+                var vertex = this.tempVertexes[key];
+                if (first) {
+                    ctx.moveTo(vertex.x, vertex.y);
+                    first = false;
+                    continue;
+                }
+                ctx.lineTo(vertex.x, vertex.y);
+            }
+            //             ctx.closePath();
+            ctx.stroke();
+            for (var key in this.tempVertexes) {
+                var vertex = this.tempVertexes[key];
+                var x = vertex.x;
+                var y = vertex.y;
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.moveTo(x, y + 5);
+                ctx.lineTo(x + 5, y);
+                ctx.lineTo(x, y - 5);
+                ctx.lineTo(x - 5, y);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+            //             ctx.fill();
+            //             ctx.stroke();
+        };
+        CanvasWrapper.prototype.click = function (event) {
+            this.tempVertexes.push({ x: event.clientX - event.target.offsetLeft, y: event.clientY - event.target.offsetTop });
+            console.log(this.tempVertexes);
+            this.redraw();
+        };
         CanvasWrapper.prototype.render = function () {
             return (React.createElement("div", { id: "canvas-wrapper" },
-                React.createElement("canvas", { id: "canvas" })));
+                React.createElement("canvas", { ref: "canvas", id: "canvas", width: "1000", height: "1000", onClick: this.click })));
         };
         return CanvasWrapper;
     }(React.Component));
@@ -25138,10 +25189,20 @@ var contoureditor;
     }(React.Component));
     contoureditor.App = App;
 })(contoureditor || (contoureditor = {}));
+var contoureditor;
+(function (contoureditor) {
+    var Node = /** @class */ (function () {
+        function Node() {
+        }
+        return Node;
+    }());
+    contoureditor.Node = Node;
+})(contoureditor || (contoureditor = {}));
 ///<reference path="3rdparty/react.development.js" />
 ///<reference path="3rdparty/react-dom.development.js" />
 // /<reference path="3rdparty/react.d.ts" />
 ///<reference path="App.tsx"/>
+///<reference path="model/Node.ts"/>
 var contoureditor;
 (function (contoureditor) {
     document.addEventListener('DOMContentLoaded', function () {

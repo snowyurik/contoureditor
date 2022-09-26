@@ -2,6 +2,7 @@
 ///<reference path="3rdparty/react-dom.development.js" />
 // /<reference path="3rdparty/react.d.ts" />
 ///<reference path="App.tsx"/>
+///<reference path="model/Node.ts"/>
 
 
 namespace contoureditor {
