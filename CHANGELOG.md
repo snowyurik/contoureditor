@@ -5,7 +5,8 @@
  - General layout
  - Tool buttons
  - Fontawesome icons
+ - Apply .jsx controllers instead of html template
 
 ### Requested
- - Apply .jsx controllers instead of html template 
+ - Create new contour on canvas 
  
