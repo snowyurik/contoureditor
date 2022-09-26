@@ -3,11 +3,9 @@
 ## [2022-09-26]
 ### Added
  - General layout
+ - Tool buttons
+ - Fontawesome icons
 
 ### Requested
- - Tool buttons
- - Toolbar
- - Main canvas
- - Sidebar
- 
+ - Apply .jsx controllers instead of html template 
  

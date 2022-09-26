@@ -2,11 +2,22 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="css/index.css" media="all">
+        <link rel="stylesheet" href="fontawesome/css/fontawesome.css" media="all">
+        <link rel="stylesheet" href="fontawesome/css/solid.css" media="all">
         <script src="js/index.js" lang="text/javascript"></script>
     </head>
     <body>
             <div id="main-wrapper">
-                <div id="toolbar">toolbar</div>
+                <div id="toolbar">
+                    <button class="toolbar-button">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Undo
+                    </button>
+                    <button class="toolbar-button">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        Redo
+                    </button>
+                </div>
 		<div id="sidebar">sidebar</div>
 		<div id="canvas-wrapper">
 		    <canvas id="canvas"></canvas>
