@@ -3,7 +3,34 @@
 ///<reference path="CanvasWrapper.tsx"/>
 
 namespace contoureditor {
-    export class App extends React.Component {
+
+    interface AppState {
+        tool: string
+    }
+
+    export class App extends React.Component<{},AppState> {
+
+
+//         public static defaultState = {
+//             tool: "create"
+//         }
+
+        public constructor(props) {
+            super(props);
+            this.state = {
+                tool: "create"
+            };
+            this.setTool = this.setTool.bind(this);
+        }
+
+
+        public setTool(tool:string) {
+            this.setState( prevState => {
+                return { tool: tool };
+            });
+        }
+
+
         
 //         public constructor(props) {
 //             super(props);
@@ -80,8 +107,8 @@ namespace contoureditor {
         public render() {
             return (
                 <div id="main-wrapper">
-                    <Toolbar/>
-                    <Sidebar/>
+                    <Toolbar tool={this.state.tool} setTool={this.setTool} />
+                    <Sidebar tool={this.state.tool} />
                     <CanvasWrapper/>
                 </div>
             );

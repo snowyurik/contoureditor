@@ -24985,13 +24985,24 @@ var contoureditor;
 (function (contoureditor) {
     var ToolbarButton = /** @class */ (function (_super) {
         __extends(ToolbarButton, _super);
-        function ToolbarButton() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function ToolbarButton(props) {
+            var _this = _super.call(this, props) || this;
+            _this.click = _this.click.bind(_this);
+            return _this;
         }
+        ToolbarButton.prototype.click = function (event) {
+            this.props.setTool(this.props.name);
+        };
         ToolbarButton.prototype.render = function () {
-            return (React.createElement("button", { className: "toolbar-button" },
+            var isActive = this.props.name != "" && this.props.name == this.props.currentTool;
+            return (React.createElement("button", { className: "toolbar-button " + (isActive ? "toolbar-button__active" : ""), onClick: this.click },
                 React.createElement("i", { className: "fa-solid " + this.props.icon }),
                 this.props.label));
+        };
+        ToolbarButton.defaultProps = {
+            name: "",
+            currentTool: "",
+            setTool: function (tool) { }
         };
         return ToolbarButton;
     }(React.Component));
@@ -25009,9 +25020,9 @@ var contoureditor;
             return (React.createElement("div", { id: "toolbar" },
                 React.createElement(contoureditor.ToolbarButton, { label: "Undo", icon: "fa-rotate-left" }),
                 React.createElement(contoureditor.ToolbarButton, { label: "Redo", icon: "fa-rotate-right" }),
-                React.createElement(contoureditor.ToolbarButton, { label: "Select", icon: "fa-arrow-pointer" }),
-                React.createElement(contoureditor.ToolbarButton, { label: "Move", icon: "fa-up-down-left-right" }),
-                React.createElement(contoureditor.ToolbarButton, { label: "New Contour", icon: "fa-plus" }),
+                React.createElement(contoureditor.ToolbarButton, { label: "Select", icon: "fa-arrow-pointer", name: "select", currentTool: this.props.tool, setTool: this.props.setTool }),
+                React.createElement(contoureditor.ToolbarButton, { label: "Move", icon: "fa-up-down-left-right", name: "move", currentTool: this.props.tool, setTool: this.props.setTool }),
+                React.createElement(contoureditor.ToolbarButton, { label: "New Contour", icon: "fa-plus", name: "create", currentTool: this.props.tool, setTool: this.props.setTool }),
                 React.createElement(contoureditor.ToolbarButton, { label: "Show Labels", icon: "fa-eye" })));
         };
         return Toolbar;
@@ -25020,13 +25031,83 @@ var contoureditor;
 })(contoureditor || (contoureditor = {}));
 var contoureditor;
 (function (contoureditor) {
+    var BaseToolSidebar = /** @class */ (function (_super) {
+        __extends(BaseToolSidebar, _super);
+        function BaseToolSidebar() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BaseToolSidebar.defaultProps = {
+            isActive: false
+        };
+        return BaseToolSidebar;
+    }(React.Component));
+    contoureditor.BaseToolSidebar = BaseToolSidebar;
+})(contoureditor || (contoureditor = {}));
+var contoureditor;
+(function (contoureditor) {
+    var CreateToolSidebar = /** @class */ (function (_super) {
+        __extends(CreateToolSidebar, _super);
+        function CreateToolSidebar() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        CreateToolSidebar.prototype.render = function () {
+            return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
+                React.createElement("h3", null, "Create Tool"),
+                React.createElement("p", null, "click on canvas to create vertexes of new contour"),
+                React.createElement("button", null, "Close Contour")));
+        };
+        return CreateToolSidebar;
+    }(contoureditor.BaseToolSidebar));
+    contoureditor.CreateToolSidebar = CreateToolSidebar;
+})(contoureditor || (contoureditor = {}));
+var contoureditor;
+(function (contoureditor) {
+    var SelectToolSidebar = /** @class */ (function (_super) {
+        __extends(SelectToolSidebar, _super);
+        function SelectToolSidebar() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        SelectToolSidebar.prototype.render = function () {
+            return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
+                React.createElement("h3", null, "Select Tool"),
+                React.createElement("p", null, "Click on contour to select and edit vertexes position")));
+        };
+        return SelectToolSidebar;
+    }(contoureditor.BaseToolSidebar));
+    contoureditor.SelectToolSidebar = SelectToolSidebar;
+})(contoureditor || (contoureditor = {}));
+var contoureditor;
+(function (contoureditor) {
+    var MoveToolSidebar = /** @class */ (function (_super) {
+        __extends(MoveToolSidebar, _super);
+        function MoveToolSidebar() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        MoveToolSidebar.prototype.render = function () {
+            return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
+                React.createElement("h3", null, "Move Tool"),
+                React.createElement("p", null, "Drag and drop contour")));
+        };
+        return MoveToolSidebar;
+    }(contoureditor.BaseToolSidebar));
+    contoureditor.MoveToolSidebar = MoveToolSidebar;
+})(contoureditor || (contoureditor = {}));
+///<reference path="BaseToolSidebar.tsx"/>
+///<reference path="CreateToolSidebar.tsx"/>
+///<reference path="SelectToolSidebar.tsx"/>
+///<reference path="MoveToolSidebar.tsx"/>
+var contoureditor;
+(function (contoureditor) {
     var Sidebar = /** @class */ (function (_super) {
         __extends(Sidebar, _super);
         function Sidebar() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
         Sidebar.prototype.render = function () {
-            return (React.createElement("div", { id: "sidebar" }, "sidebar"));
+            return (React.createElement("div", { id: "sidebar" },
+                React.createElement(contoureditor.CreateToolSidebar, { isActive: this.props.tool == "create" }),
+                React.createElement(contoureditor.SelectToolSidebar, { isActive: this.props.tool == "select" }),
+                React.createElement(contoureditor.MoveToolSidebar, { isActive: this.props.tool == "move" })));
         };
         return Sidebar;
     }(React.Component));
@@ -25105,9 +25186,22 @@ var contoureditor;
 (function (contoureditor) {
     var App = /** @class */ (function (_super) {
         __extends(App, _super);
-        function App() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        //         public static defaultState = {
+        //             tool: "create"
+        //         }
+        function App(props) {
+            var _this = _super.call(this, props) || this;
+            _this.state = {
+                tool: "create"
+            };
+            _this.setTool = _this.setTool.bind(_this);
+            return _this;
         }
+        App.prototype.setTool = function (tool) {
+            this.setState(function (prevState) {
+                return { tool: tool };
+            });
+        };
         //         public constructor(props) {
         //             super(props);
         //             this.state = { items: [] };
@@ -25181,8 +25275,8 @@ var contoureditor;
         //         }
         App.prototype.render = function () {
             return (React.createElement("div", { id: "main-wrapper" },
-                React.createElement(contoureditor.Toolbar, null),
-                React.createElement(contoureditor.Sidebar, null),
+                React.createElement(contoureditor.Toolbar, { tool: this.state.tool, setTool: this.setTool }),
+                React.createElement(contoureditor.Sidebar, { tool: this.state.tool }),
                 React.createElement(contoureditor.CanvasWrapper, null)));
         };
         return App;

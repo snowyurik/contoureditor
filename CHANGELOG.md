@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [2022-09-27]
+### Added
+ - Create tool is default
+ - Switching sidebar contents for Create/Select/Move tools
+
 ## [2022-09-26]
 ### Added
  - General layout

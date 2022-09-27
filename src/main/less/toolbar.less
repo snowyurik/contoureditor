@@ -3,11 +3,27 @@
     border-bottom: @border;
 
     .toolbar-button {
+        background: #eee;
+        outline: 1px solid #333;
+        border-top: 1px solid #f0f0f0;
+        border-bottom: 1px solid #ddd;
+        border-left: none;
+        border-right: none;
+
+        border-radius: 4px;
+
         margin-right: @gap;
         i {
             display: block;
             font-size: 1.2em;
             margin: @gap;
         }
+    }
+    .toolbar-button__active {
+        background: #ddd;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #eee;
+//         outline: 2px solid #555;
+        border-radius: 4px;
     }
 }
