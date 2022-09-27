@@ -2,22 +2,22 @@
 
 namespace contoureditor {
     export class CanvasWrapper extends React.Component {
-
+        public canvasRef:any;
         public canvasElement:any;
         public canvasCtx:any;
         public tempVertexes: any[] = [];
 
         public constructor(props) {
             super(props);
+            this.canvasRef = React.createRef();
             this.click = this.click.bind(this);
         }
 
         public componentDidMount() {
-            this.canvasElement = this.refs.canvas;
+            this.canvasElement = this.canvasRef.current;
             if( !(this.canvasCtx = this.canvasElement.getContext('2d')) ) {
                 throw "Canvas not initialized";
             }
-//             this.tempVertices = [];
             this.redraw();
         }
 
@@ -68,7 +68,7 @@ namespace contoureditor {
         public render() {
             return (
                 <div id="canvas-wrapper">
-                    <canvas ref="canvas" id="canvas"
+                    <canvas ref={this.canvasRef} id="canvas"
                         width="1000"
                         height="1000"
                         onClick={this.click}

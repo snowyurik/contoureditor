@@ -3,7 +3,6 @@
         "lib": ["es5", "es6", "dom"],
         "jsx": "react",
         "allowJs": true,
-        "rootDir": "./",
-        "outFile": "../ts/index.js"
+        "rootDir": "./"
     }
 }
