@@ -3,6 +3,7 @@
         "lib": ["es5", "es6", "dom"],
         "jsx": "react",
         "allowJs": true,
+        "esModuleInterop":true,
         "rootDir": "./"
     }
 }

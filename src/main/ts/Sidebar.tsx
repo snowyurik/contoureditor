@@ -1,9 +1,14 @@
-///<reference path="BaseToolSidebar.tsx"/>
-///<reference path="CreateToolSidebar.tsx"/>
-///<reference path="SelectToolSidebar.tsx"/>
-///<reference path="MoveToolSidebar.tsx"/>
+// /<reference path="BaseToolSidebar.tsx"/>
+// /<reference path="CreateToolSidebar.tsx"/>
+// /<reference path="SelectToolSidebar.tsx"/>
+// /<reference path="MoveToolSidebar.tsx"/>
 
-namespace contoureditor {
+import React, { Component } from "react";
+import { CreateToolSidebar } from "./CreateToolSidebar";
+import { MoveToolSidebar } from "./MoveToolSidebar";
+import { SelectToolSidebar } from "./SelectToolSidebar";
+
+// namespace contoureditor {
 
     interface SidebarProps {
         tool: string
@@ -21,4 +26,4 @@ namespace contoureditor {
             );
         }
     }
-}
+// }

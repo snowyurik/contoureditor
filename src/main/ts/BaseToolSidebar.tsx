@@ -1,4 +1,5 @@
-namespace contoureditor {
+// namespace contoureditor {
+import React, { Component } from "react";
 
     interface BaseToolSidebarProps {
         isActive: boolean
@@ -9,4 +10,4 @@ namespace contoureditor {
             isActive: false
         }
     }
-}
+// }

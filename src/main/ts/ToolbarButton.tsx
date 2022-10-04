@@ -1,5 +1,5 @@
-namespace contoureditor {
-
+// namespace contoureditor {
+import React, { Component } from "react";
     interface ToolbarButtonProps {
         label: string,
         icon: string,
@@ -37,4 +37,4 @@ namespace contoureditor {
             );
         }
     }
-}
+// }

@@ -1,4 +1,6 @@
-namespace contoureditor {
+// namespace contoureditor {
+import React, { Component } from "react";
+import { BaseToolSidebar } from "./BaseToolSidebar";
 
     export class MoveToolSidebar extends BaseToolSidebar{
         public render() {
@@ -12,4 +14,4 @@ namespace contoureditor {
             );
         }
     }
-}
+// }

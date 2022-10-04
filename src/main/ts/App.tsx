@@ -1,8 +1,13 @@
-///<reference path="Toolbar.tsx"/>
-///<reference path="Sidebar.tsx"/>
-///<reference path="CanvasWrapper.tsx"/>
+// /<reference path="Toolbar.tsx"/>
+// /<reference path="Sidebar.tsx"/>
+// /<reference path="CanvasWrapper.tsx"/>
+import React, { Component } from "react";
+import { render } from "react-dom";
+import { Toolbar } from "./Toolbar";
+import { Sidebar } from "./Sidebar";
+import CanvasWrapper from "./CanvasWrapper";
 
-namespace contoureditor {
+// namespace contoureditor {
 
     interface AppState {
         tool: string
@@ -115,5 +120,5 @@ namespace contoureditor {
         }
     } 
     
-}
+// }
 

@@ -1,8 +1,12 @@
-///<reference path="ToolbarButton.tsx"/>
+// /<reference path="ToolbarButton.tsx"/>
 
-namespace contoureditor {
+import React, { Component } from "react";
+import { render } from "react-dom";
+import { ToolbarButton } from "./ToolbarButton";
 
-    interface ToolbarProps {
+// namespace contoureditor {
+
+    export interface ToolbarProps {
         tool: string;
         setTool: (tool:string) => void;
     }
@@ -23,4 +27,4 @@ namespace contoureditor {
             );
         }
     }
-}
+// }
