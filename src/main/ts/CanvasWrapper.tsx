@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 // import {} from "konva";
 import {
-  Stage,
-  Layer,
-  Rect,
-  Text,
-  Circle,
-  Line
-} from "./inc/ReactKonvaCore";
+  Stage, Layer, Text
+} from "react-konva";
+// from 'react-konva';
+// from "./inc/ReactKonvaCore";
+// from "react-konva/ReactKonvaCore";
 
 // export namespace contoureditor {
     export default class CanvasWrapper extends React.Component {
@@ -79,14 +77,16 @@ import {
 //                 return (
 //                     <div>CanvasWrapper</div>
 //                 );
-            return (
-            <Stage/>
-            );
-// {/*                 <Layer> */}
-// {/*                     <Text text="Try click on rect" /> */}
-// {/*                 </Layer> */}
-// {/*             </Stage> */}
+//             return (
+//                 <Stage />
 //             );
+            return (
+            <Stage width={window.innerWidth} height={window.innerHeight}>
+            <Layer>
+                 <Text text="react-konva working" />
+             </Layer>
+            </Stage>
+            );
 //             return (
 //                 <div id="canvas-wrapper">
 //                     <canvas ref={this.canvasRef} id="canvas"

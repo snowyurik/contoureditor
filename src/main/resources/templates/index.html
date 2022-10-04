@@ -4,31 +4,12 @@
         <link rel="stylesheet" href="css/index.css" media="all">
         <link rel="stylesheet" href="fontawesome/css/fontawesome.css" media="all">
         <link rel="stylesheet" href="fontawesome/css/solid.css" media="all">
-        <script>process = { env: { NODE_ENV: null } }</script>
-        <script src="js/system.min.js" lang="text/javascript"></script>
-        <script src="js/extras/named-register.js"></script>
-        <script type="systemjs-importmap">
-          {
-            "imports": {
-              "react": "/js/3rdparty/react.development.js",
-              "react-dom/client": "/js/3rdparty/react-dom.development.js",
-              "konva/lib/Core":"/js/3rdparty/konva.min.js",
-              "konva/lib/Global":"/js/3rdparty/konva.min.js",
-              "react-reconciler":"/js/3rdparty/react-reconciler/cjs/react-reconciler.development.js",
-              "react-reconciler/constants":"/js/3rdparty/react-reconciler/cjs/react-reconciler-constants.development.js",
-              "scheduler":"/js/3rdparty/scheduler/index.js",
-              "index":"/js/index.js"
-            }
-          }
+        <script>
+            var process = { env: { NODE_ENV: "dev" }};
         </script>
-        <!--              "react-konva/lib/ReactKonvaCore":"/js/3rdparty/react-konva/lib/ReactKonvaCore.js",-->
-<!--        <script type=”module” src=”js/index.js”></script>-->
-        <script type="systemjs-module" src="js/index.js" lang="text/javascript"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
     </head>
     <body>
         <div id="contoureditor-wrapper"></div>
-        <script type="type/javascript">
-            System.import('index');
-        </script>
     </body>
 </html>

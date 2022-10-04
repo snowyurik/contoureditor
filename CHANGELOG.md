@@ -2,8 +2,11 @@
 
 ## [2022-10-04]
 ### Added
+ - React-Konva instead of raw canvas, because it's all in React style and also had event handlers like mouseclick
+ - SystemJS removed, switched to RollupJS
+ - ES6 module export (recent standart), old system/amd removed
 ### Requested
- - 
+ - Recreate polygon on mouse click
 
 ## [2022-10-03]
 ### Added
