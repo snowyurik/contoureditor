@@ -18,7 +18,8 @@ public class UserTest
     void addRemove() {
         Users users = new Users();
         User user = new User();
-        
-        users.add( user );
+        assertEquals( User.UNDEFINED_ID, user.id );
+        users.save( user );
+        assertNotEquals( User.UNDEFINED_ID, user.id );
     }
 }
