@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [2022-10-17]
+### Added
+ - Maven multimodule architecture, subprojects for web, cli, data model library
+ - Hybernate + Mysql
+
 ## [2022-10-04]
 ### Added
  - React-Konva instead of raw canvas, because it's all in React style and also had event handlers like mouseclick

@@ -18,6 +18,8 @@ public class User {
     @GeneratedValue(strategy=GenerationType.AUTO)
     public Integer id = null;
 
+    public String login;
+    public String password;
 
 
 }
