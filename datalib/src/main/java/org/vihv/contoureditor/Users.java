@@ -1,4 +1,4 @@
-package vihv.org;
+package org.vihv.contoureditor;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
@@ -20,6 +20,12 @@ public class Users {
     public void save(User user) {
         session.getTransaction().begin();
         session.save(user);
+        session.getTransaction().commit();
+    }
+
+    public void remove(User user) {
+        session.getTransaction().begin();
+        session.remove(user);
         session.getTransaction().commit();
     }
 }

@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>vihv.org</groupId>
+  <groupId>org.vihv.contoureditor</groupId>
   <artifactId>cli</artifactId>
   <version>1.0-SNAPSHOT</version>
 
@@ -21,7 +21,7 @@
 
   <parent>
     <artifactId>contoureditor-wrapper</artifactId>
-    <groupId>vihv.org</groupId>
+    <groupId>org.vihv.contoureditor</groupId>
     <version>1.0-SNAPSHOT</version>
 <!--    <relativePath>../cli/pom.xml</relativePath>-->
   </parent>
@@ -29,22 +29,20 @@
   <dependencies>
 <!--    <dependency>-->
 <!--      <artifactId>datalib</artifactId>-->
-<!--      <groupId>vihv.org</groupId>-->
+<!--      <groupId>org.vihv.contoureditor</groupId>-->
 <!--      <version>1.0-SNAPSHOT</version>-->
 <!--      <scope>import</scope>-->
 <!--      <type>pom</type>-->
 <!--    </dependency>-->
       <dependency>
-          <groupId>vihv.org</groupId>
+          <groupId>org.vihv.contoureditor</groupId>
           <artifactId>datalib</artifactId>
           <version>1.0-SNAPSHOT</version>
           <scope>provided</scope>
-<!--          <scope>compile</scope>-->
-<!--          <scope>import</scope>-->
           <type>jar</type>
       </dependency>
 <!--    <dependency>-->
-<!--      <groupId>vihv.org</groupId>-->
+<!--      <groupId>org.vihv.contoureditor</groupId>-->
 <!--      <artifactId>datalib</artifactId>-->
 <!--      <version>1.0-SNAPSHOT</version>-->
 <!--      <scope>compile</scope>-->
@@ -74,7 +72,7 @@
 <!--            </execution>-->
 <!--          </executions>-->
 <!--          <configuration>-->
-<!--            <mainClass>vihv.org.App</mainClass>-->
+<!--            <mainClass>org.vihv.contoureditor.App</mainClass>-->
 <!--          </configuration>-->
 <!--        </plugin>-->
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -119,7 +117,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>vihv.org.App</mainClass>
+                <mainClass>org.vihv.contoureditor.App</mainClass>
                 <addClasspath>true</addClasspath>
               </manifest>
             </archive>
@@ -158,7 +156,7 @@
 <!--&lt;!&ndash;            </execution>&ndash;&gt;-->
 <!--&lt;!&ndash;          </executions>&ndash;&gt;-->
 <!--          <configuration>-->
-<!--            <archive><manifest><mainClass>vihv.org.App</mainClass></manifest></archive>-->
+<!--            <archive><manifest><mainClass>org.vihv.contoureditor.App</mainClass></manifest></archive>-->
 <!--&lt;!&ndash;            <descriptorRefs>&ndash;&gt;-->
 <!--&lt;!&ndash;              <descriptorRef>jar-with-dependencies</descriptorRef>&ndash;&gt;-->
 <!--&lt;!&ndash;            </descriptorRefs>&ndash;&gt;-->

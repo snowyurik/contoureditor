@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [2022-10-19]
+### Added
+ - Authorization
+ - Web API tests
+
 ## [2022-10-17]
 ### Added
  - Maven multimodule architecture, subprojects for web, cli, data model library

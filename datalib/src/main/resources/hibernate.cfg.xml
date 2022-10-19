@@ -22,6 +22,8 @@
         <property name="hbm2ddl.auto">update</property>
 
 
-        <mapping class="vihv.org.User" />
+        <mapping class="org.vihv.contoureditor.User" />
+        <mapping class="org.vihv.contoureditor.Contour" />
+        <mapping class="org.vihv.contoureditor.Vertex" />
     </session-factory>
 </hibernate-configuration>

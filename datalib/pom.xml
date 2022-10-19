@@ -4,26 +4,26 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>vihv.org</groupId>
+  <groupId>org.vihv.contoureditor</groupId>
   <artifactId>datalib</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>datalib</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://vihv.org</url>
+  <url>http://org.vihv.contoureditor</url>
   <packaging>jar</packaging>
 
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <junit.version>5.9.1</junit.version>
   </properties>
 
   <parent>
     <artifactId>contoureditor-wrapper</artifactId>
-    <groupId>vihv.org</groupId>
+    <groupId>org.vihv.contoureditor</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
@@ -50,6 +50,10 @@
           <artifactId>hibernate-entitymanager</artifactId>
           <version>5.6.12.Final</version>
         </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

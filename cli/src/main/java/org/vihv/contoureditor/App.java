@@ -1,6 +1,6 @@
-package vihv.org;
+package org.vihv.contoureditor;
 
-import vihv.org.Users;
+import org.vihv.contoureditor.Users;
 
 /**
  * Hello world!

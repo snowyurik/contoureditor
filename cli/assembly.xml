@@ -10,7 +10,7 @@
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>vihv.org:dataset</include>
+                <include>org.vihv.contoureditor:dataset</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
