@@ -14,8 +14,9 @@ public class Contour {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    public Integer id = null;
+    public Long id = null;
     public String title;
-    @ManyToOne
-    public Collection<Vertex> vertexes = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Vertex> vertexes = new ArrayList<>();
 }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [2022-11-05]
+### Added
+ - REST for saving contours, linked to authorised user
+
 ## [2022-10-19]
 ### Added
  - Authorization
