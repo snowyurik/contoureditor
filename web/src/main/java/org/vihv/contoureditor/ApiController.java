@@ -14,10 +14,10 @@ import org.vihv.contoureditor.Contour;
 import org.vihv.contoureditor.User;
 import org.vihv.contoureditor.UserRepository;
 
-class ContourData {
-    public Long id;
-    public String title;
-}
+//class ContourData {
+//    public Long id;
+//    public String title;
+//}
 @RestController
 @RequestMapping("/api")
 public class ApiController {
