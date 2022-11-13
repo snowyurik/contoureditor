@@ -6,6 +6,7 @@ import { render } from "react-dom";
 import { Toolbar } from "./Toolbar";
 import { Sidebar } from "./Sidebar";
 import CanvasWrapper from "./CanvasWrapper";
+import { MainMenu } from "./MainMenu";
 
 // namespace contoureditor {
 
@@ -112,6 +113,7 @@ import CanvasWrapper from "./CanvasWrapper";
         public render() {
             return (
                 <div id="main-wrapper">
+                    <MainMenu />
                     <Toolbar tool={this.state.tool} setTool={this.setTool} />
                     <Sidebar tool={this.state.tool} />
                     <CanvasWrapper/>

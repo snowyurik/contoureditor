@@ -1,3 +1,6 @@
 #!/bin/sh
 
-lessc --verbose src/main/less/index.less src/main/resources/static/css/index.css
+callPath=`pwd`
+scriptPath=`dirname $0`
+
+lessc --verbose $scriptPath/src/main/less/index.less $scriptPath/src/main/resources/static/css/index.css

@@ -33733,7 +33733,7 @@
 	  };
 	}
 
-	var __extends$8 = (undefined && undefined.__extends) || (function () {
+	var __extends$9 = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
 	        extendStatics = Object.setPrototypeOf ||
 	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -33747,7 +33747,7 @@
 	    };
 	})();
 	var ToolbarButton = /** @class */ (function (_super) {
-	    __extends$8(ToolbarButton, _super);
+	    __extends$9(ToolbarButton, _super);
 	    function ToolbarButton(props) {
 	        var _this = _super.call(this, props) || this;
 	        _this.click = _this.click.bind(_this);
@@ -33772,7 +33772,7 @@
 	// }
 
 	// /<reference path="ToolbarButton.tsx"/>
-	var __extends$7 = (undefined && undefined.__extends) || (function () {
+	var __extends$8 = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
 	        extendStatics = Object.setPrototypeOf ||
 	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -33786,7 +33786,7 @@
 	    };
 	})();
 	var Toolbar = /** @class */ (function (_super) {
-	    __extends$7(Toolbar, _super);
+	    __extends$8(Toolbar, _super);
 	    function Toolbar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
@@ -33803,7 +33803,7 @@
 	}(React.Component));
 	// }
 
-	var __extends$6 = (undefined && undefined.__extends) || (function () {
+	var __extends$7 = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
 	        extendStatics = Object.setPrototypeOf ||
 	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -33817,7 +33817,7 @@
 	    };
 	})();
 	var BaseToolSidebar = /** @class */ (function (_super) {
-	    __extends$6(BaseToolSidebar, _super);
+	    __extends$7(BaseToolSidebar, _super);
 	    function BaseToolSidebar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
@@ -33826,6 +33826,34 @@
 	    };
 	    return BaseToolSidebar;
 	}(React.Component));
+	// }
+
+	var __extends$6 = (undefined && undefined.__extends) || (function () {
+	    var extendStatics = function (d, b) {
+	        extendStatics = Object.setPrototypeOf ||
+	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+	        return extendStatics(d, b);
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	var CreateToolSidebar = /** @class */ (function (_super) {
+	    __extends$6(CreateToolSidebar, _super);
+	    function CreateToolSidebar() {
+	        return _super !== null && _super.apply(this, arguments) || this;
+	    }
+	    CreateToolSidebar.prototype.render = function () {
+	        return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
+	            React.createElement("h3", null, "Create Tool"),
+	            React.createElement("p", null, "click on canvas to create vertexes of new contour"),
+	            React.createElement("button", null, "Close Contour")));
+	    };
+	    return CreateToolSidebar;
+	}(BaseToolSidebar));
 	// }
 
 	var __extends$5 = (undefined && undefined.__extends) || (function () {
@@ -33841,18 +33869,17 @@
 	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	    };
 	})();
-	var CreateToolSidebar = /** @class */ (function (_super) {
-	    __extends$5(CreateToolSidebar, _super);
-	    function CreateToolSidebar() {
+	var MoveToolSidebar = /** @class */ (function (_super) {
+	    __extends$5(MoveToolSidebar, _super);
+	    function MoveToolSidebar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
-	    CreateToolSidebar.prototype.render = function () {
+	    MoveToolSidebar.prototype.render = function () {
 	        return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
-	            React.createElement("h3", null, "Create Tool"),
-	            React.createElement("p", null, "click on canvas to create vertexes of new contour"),
-	            React.createElement("button", null, "Close Contour")));
+	            React.createElement("h3", null, "Move Tool"),
+	            React.createElement("p", null, "Drag and drop contour")));
 	    };
-	    return CreateToolSidebar;
+	    return MoveToolSidebar;
 	}(BaseToolSidebar));
 	// }
 
@@ -33869,35 +33896,8 @@
 	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	    };
 	})();
-	var MoveToolSidebar = /** @class */ (function (_super) {
-	    __extends$4(MoveToolSidebar, _super);
-	    function MoveToolSidebar() {
-	        return _super !== null && _super.apply(this, arguments) || this;
-	    }
-	    MoveToolSidebar.prototype.render = function () {
-	        return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
-	            React.createElement("h3", null, "Move Tool"),
-	            React.createElement("p", null, "Drag and drop contour")));
-	    };
-	    return MoveToolSidebar;
-	}(BaseToolSidebar));
-	// }
-
-	var __extends$3 = (undefined && undefined.__extends) || (function () {
-	    var extendStatics = function (d, b) {
-	        extendStatics = Object.setPrototypeOf ||
-	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-	            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-	        return extendStatics(d, b);
-	    };
-	    return function (d, b) {
-	        extendStatics(d, b);
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	})();
 	var SelectToolSidebar = /** @class */ (function (_super) {
-	    __extends$3(SelectToolSidebar, _super);
+	    __extends$4(SelectToolSidebar, _super);
 	    function SelectToolSidebar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
@@ -33914,7 +33914,7 @@
 	// /<reference path="CreateToolSidebar.tsx"/>
 	// /<reference path="SelectToolSidebar.tsx"/>
 	// /<reference path="MoveToolSidebar.tsx"/>
-	var __extends$2 = (undefined && undefined.__extends) || (function () {
+	var __extends$3 = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
 	        extendStatics = Object.setPrototypeOf ||
 	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -33928,7 +33928,7 @@
 	    };
 	})();
 	var Sidebar = /** @class */ (function (_super) {
-	    __extends$2(Sidebar, _super);
+	    __extends$3(Sidebar, _super);
 	    function Sidebar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
@@ -66709,7 +66709,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	    return React.createElement(FiberProvider, {}, React.createElement(StageWrap, { ...props, forwardedRef: ref }));
 	});
 
-	var __extends$1 = (undefined && undefined.__extends) || (function () {
+	var __extends$2 = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
 	        extendStatics = Object.setPrototypeOf ||
 	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -66727,7 +66727,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	// from "react-konva/ReactKonvaCore";
 	// export namespace contoureditor {
 	var CanvasWrapper = /** @class */ (function (_super) {
-	    __extends$1(CanvasWrapper, _super);
+	    __extends$2(CanvasWrapper, _super);
 	    function CanvasWrapper(props) {
 	        var _this = _super.call(this, props) || this;
 	        _this.tempVertexes = [];
@@ -66807,6 +66807,68 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	    return CanvasWrapper;
 	}(React.Component));
 	// }
+
+	var __extends$1 = (undefined && undefined.__extends) || (function () {
+	    var extendStatics = function (d, b) {
+	        extendStatics = Object.setPrototypeOf ||
+	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+	        return extendStatics(d, b);
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	var MainMenu = /** @class */ (function (_super) {
+	    __extends$1(MainMenu, _super);
+	    function MainMenu() {
+	        return _super !== null && _super.apply(this, arguments) || this;
+	    }
+	    MainMenu.prototype.saveClick = function () {
+	        console.log("save click");
+	        var requestOptions = {
+	            method: 'PUT',
+	            headers: { 'Content-Type': 'application/json' },
+	            body: JSON.stringify([
+	                { title: "TestWebContour1" }
+	            ])
+	        };
+	        fetch("/api/contour/list", requestOptions);
+	    };
+	    MainMenu.prototype.loadClick = function () {
+	        console.log("load click");
+	        var requestOptions = {
+	            method: 'GET',
+	            headers: { 'Content-Type': 'application/json' } //,
+	            //             body: JSON.stringify({ title: 'React PUT Request Example' })
+	        };
+	        fetch("/api/contour/list", requestOptions)
+	            .then(function (response) { return response.json(); })
+	            .then(function (data) {
+	            console.log("Load response received");
+	            console.log(data);
+	        }
+	        //             this.setState({ postId: data.id })
+	        );
+	    };
+	    MainMenu.prototype.render = function () {
+	        return (React.createElement("div", { className: "menu" },
+	            React.createElement("ul", { className: "menu__main" },
+	                React.createElement("li", { className: "menu__item" },
+	                    React.createElement("a", { href: "#" }, "File"),
+	                    React.createElement("ul", { className: "menu__submenu" },
+	                        React.createElement("li", { className: "menu__item" },
+	                            React.createElement("a", { href: "#", onClick: this.saveClick }, "Save")),
+	                        React.createElement("li", { className: "menu__item" },
+	                            React.createElement("a", { href: "#", onClick: this.loadClick }, "Reload")))),
+	                React.createElement("li", { className: "menu__item" },
+	                    React.createElement("a", { href: "/logout" }, "Logout"))),
+	            React.createElement("div", { className: "clear" })));
+	    };
+	    return MainMenu;
+	}(React.Component));
 
 	var __extends = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
@@ -66912,6 +66974,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	    //         }
 	    App.prototype.render = function () {
 	        return (React.createElement("div", { id: "main-wrapper" },
+	            React.createElement(MainMenu, null),
 	            React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
 	            React.createElement(Sidebar, { tool: this.state.tool }),
 	            React.createElement(CanvasWrapper, null)));

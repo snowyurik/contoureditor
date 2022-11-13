@@ -16,6 +16,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("select s from User s where s.login = :login")
     public User getByLogin(@Param("login") String login);
 
+    @Query("select s from User s where s.login = :login and s.password = :password")
+    public User getByLoginPassword(@Param("login") String login, @Param("password") String encodedPassword);
+
 //    public User getByLogin(String login) throws EUserNotFound  {
 //        Example<User> example = Example.of( new User() {{ login = login; }} );
 //        Optional<User> optional =  findOne( example );

@@ -5,10 +5,14 @@ body {
 }
 body {
   background: #fefefe url("/img/texture.png");
+  font-size: 16px;
   color: #303030;
 }
 div {
   box-sizing: border-box;
+}
+.clear {
+  clear: both;
 }
 #main-wrapper {
   margin: 10px;
@@ -61,5 +65,44 @@ div {
   min-width: 1000px;
   width: 100%;
   height: 1000px;
+  display: block;
+}
+.menu {
+  border-bottom: 1px solid #c5c5c5;
+  background: #cccccc;
+  box-sizing: border-box;
+}
+.menu__main {
+  margin: 0;
+  padding: 0;
+}
+.menu__item {
+  list-style: none;
+  position: relative;
+  display: inline-block;
+  background: #cccccc;
+}
+.menu__item > a {
+  display: inline-block;
+  padding: 10px;
+  color: #303030;
+  text-decoration: none;
+  cursor: pointer;
+}
+.menu__item:hover {
+  background: #dddddd;
+}
+.menu__submenu {
+  display: none;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 36px;
+  background: #cccccc;
+}
+.menu__submenu .menu__item {
+  width: 100%;
+}
+.menu__item:hover > .menu__submenu {
   display: block;
 }

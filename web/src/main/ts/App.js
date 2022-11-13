@@ -18,6 +18,7 @@ import React from "react";
 import { Toolbar } from "./Toolbar";
 import { Sidebar } from "./Sidebar";
 import CanvasWrapper from "./CanvasWrapper";
+import { MainMenu } from "./MainMenu";
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     //         public static defaultState = {
@@ -109,6 +110,7 @@ var App = /** @class */ (function (_super) {
     //         }
     App.prototype.render = function () {
         return (React.createElement("div", { id: "main-wrapper" },
+            React.createElement(MainMenu, null),
             React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
             React.createElement(Sidebar, { tool: this.state.tool }),
             React.createElement(CanvasWrapper, null)));

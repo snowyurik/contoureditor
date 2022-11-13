@@ -1,6 +1,9 @@
 @mainBgColor: #fefefe;
+@menuBgColor: #cccccc;
+@menuItemSelectedBgColor: #dddddd;
 @borderColor: #c5c5c5;
 @border: 1px solid @borderColor;
+@baseFontSize: 16px;
 @fontColor: #303030;
 @gap: 10px;
 @sidebarWidth: 250px;
@@ -13,10 +16,13 @@ html, body {
 
 body {
     background: @mainBgColor url("/img/texture.png");
-
+    font-size: @baseFontSize;
     color: @fontColor;
 }
 
 div {
     box-sizing: border-box;
+}
+.clear {
+    clear: both;
 }

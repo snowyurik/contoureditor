@@ -1,3 +1,5 @@
 #!/bin/bash
 
-mvn -pl web spring-boot:run
+./web/build-js.sh && \
+./web/build-css.sh && \
+mvn -am -pl web spring-boot:run
