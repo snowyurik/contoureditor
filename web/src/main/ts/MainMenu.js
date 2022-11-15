@@ -14,8 +14,11 @@ var __extends = (this && this.__extends) || (function () {
 import React from "react";
 var MainMenu = /** @class */ (function (_super) {
     __extends(MainMenu, _super);
-    function MainMenu() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function MainMenu(props) {
+        var _this = _super.call(this, props) || this;
+        _this.saveClick = _this.saveClick.bind(_this);
+        _this.loadClick = _this.loadClick.bind(_this);
+        return _this;
     }
     MainMenu.prototype.saveClick = function () {
         console.log("save click");
@@ -23,12 +26,22 @@ var MainMenu = /** @class */ (function (_super) {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify([
-                { title: "TestWebContour1" }
+                { title: "TestWebContour1WithVertexes", vertexes: [
+                        { x: 10, y: 10 },
+                        { x: 20, y: 10 },
+                        { x: 10, y: 20 },
+                    ] },
+                { title: "TestWebContour2WithVertexes", vertexes: [
+                        { x: 110, y: 110 },
+                        { x: 120, y: 110 },
+                        { x: 110, y: 220 },
+                    ] }
             ])
         };
         fetch("/api/contour/list", requestOptions);
     };
     MainMenu.prototype.loadClick = function () {
+        var _this = this;
         console.log("load click");
         var requestOptions = {
             method: 'GET',
@@ -40,6 +53,7 @@ var MainMenu = /** @class */ (function (_super) {
             .then(function (data) {
             console.log("Load response received");
             console.log(data);
+            _this.props.setContours(data);
         }
         //             this.setState({ postId: data.id })
         );

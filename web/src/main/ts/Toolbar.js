@@ -1,4 +1,3 @@
-// /<reference path="ToolbarButton.tsx"/>
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -31,4 +30,3 @@ var Toolbar = /** @class */ (function (_super) {
     return Toolbar;
 }(React.Component));
 export { Toolbar };
-// }

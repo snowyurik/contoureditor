@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 
-export class MainMenu extends React.Component {
+export interface MainMenuProps {
+    setContours: (contours:any) => void;
+}
+
+export class MainMenu extends React.Component<MainMenuProps,{}> {
+
+    public constructor(props) {
+        super(props);
+        this.saveClick = this.saveClick.bind(this);
+        this.loadClick = this.loadClick.bind(this);
+    }
 
     public saveClick() {
         console.log("save click");
@@ -9,7 +19,16 @@ export class MainMenu extends React.Component {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify([
-                { title: "TestWebContour1"}
+                { title: "TestWebContour1WithVertexes", vertexes: [
+                    { x: 10, y: 10 },
+                    { x: 20, y: 10 },
+                    { x: 10, y: 20 },
+                ]},
+                { title: "TestWebContour2WithVertexes", vertexes: [
+                    { x: 110, y: 110 },
+                    { x: 120, y: 110 },
+                    { x: 110, y: 220 },
+                ]}
             ])
         };
         fetch("/api/contour/list", requestOptions);
@@ -27,6 +46,7 @@ export class MainMenu extends React.Component {
             .then(data => {
                 console.log("Load response received");
                 console.log( data );
+                this.props.setContours( data );
             }
 //             this.setState({ postId: data.id })
             );

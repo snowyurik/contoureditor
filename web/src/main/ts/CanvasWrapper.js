@@ -12,91 +12,76 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import React from "react";
-// import {} from "konva";
-import { Stage, Layer, Text } from "react-konva";
-// from 'react-konva';
-// from "./inc/ReactKonvaCore";
-// from "react-konva/ReactKonvaCore";
-// export namespace contoureditor {
+import { Stage, Layer, Group, Line } from "react-konva";
 var CanvasWrapper = /** @class */ (function (_super) {
     __extends(CanvasWrapper, _super);
     function CanvasWrapper(props) {
         var _this = _super.call(this, props) || this;
         _this.tempVertexes = [];
+        _this.handleDragMoveVertex = _this.handleDragMoveVertex.bind(_this);
+        _this.handleDragMoveContour = _this.handleDragMoveContour.bind(_this);
+        _this.handleDragStartContour = _this.handleDragStartContour.bind(_this);
+        _this.handleDragEndContour = _this.handleDragEndContour.bind(_this);
         return _this;
-        //             this.canvasRef = React.createRef();
-        //             this.click = this.click.bind(this);
     }
-    CanvasWrapper.prototype.componentDidMount = function () {
-        //             this.canvasElement = this.canvasRef.current;
-        //             if( !(this.canvasCtx = this.canvasElement.getContext('2d')) ) {
-        //                 throw "Canvas not initialized";
-        //             }
-        //             this.redraw();
+    CanvasWrapper.prototype.handleDragMoveVertex = function (event, vertexIndex) {
+        this.props.setVertexPos(vertexIndex, event.target.attrs.x, event.target.attrs.y);
     };
-    //         public redraw() {
-    //             let ctx = this.canvasCtx;
-    //             ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
-    //             ctx.rect(10, 10, 150, 100);
-    //             ctx.stroke();
-    //
-    //             ctx.beginPath();
-    //             let first:boolean = true;
-    //             for( let key in this.tempVertexes ) {
-    //                 let vertex:any = this.tempVertexes[key];
-    //                 if(first) {
-    //                     ctx.moveTo( vertex.x, vertex.y);
-    //                     first = false;
-    //                     continue;
-    //                 }
-    //                 ctx.lineTo( vertex.x, vertex.y );
-    //             }
-    // //             ctx.closePath();
-    //             ctx.stroke();
-    //
-    //             for( let key in this.tempVertexes ) {
-    //                 let vertex:any = this.tempVertexes[key];
-    //                 let x = vertex.x;
-    //                 let y = vertex.y;
-    //                 ctx.fillStyle = '#fff';
-    //                 ctx.beginPath();
-    //                 ctx.moveTo(x, y+5);
-    //                 ctx.lineTo(x+5,y);
-    //                 ctx.lineTo(x, y-5);
-    //                 ctx.lineTo(x-5, y);
-    //                 ctx.closePath();
-    //                 ctx.fill();
-    //                 ctx.stroke();
-    //             }
-    // //             ctx.fill();
-    // //             ctx.stroke();
-    //         }
-    //         public click(event:any) {
-    //             this.tempVertexes.push( { x: event.clientX - event.target.offsetLeft , y: event.clientY - event.target.offsetTop } );
-    //             console.log(this.tempVertexes);
-    //             this.redraw();
-    //         }
+    CanvasWrapper.prototype.handleDragMoveContour = function (event, contourIndex) {
+        //         console.log("move contour", [event.target.attrs.x,  event.target.attrs.y]);
+        //         let x = event.target.attrs.x;
+        //         let y = event.target.attrs.y;
+        //         event.target.attrs.x = 0;
+        //         event.target.attrs.y = 0;
+        //         console.log("move contour 2", [event.target.attrs.x,  event.target.attrs.y]);
+        // //         let stage = event.target.getStage();
+        // //         stage.getPointerPosition().x;
+        // //         this.props.setContourPos( contourIndex, x - this.prevX, y - this.prevY);
+        //         this.prevX = x;
+        //         this.prevY = y;
+        // kind of works but blinking and does not match cursor location
+        // need better solution
+        // problem is we are moving contour zero point together with vertexes
+        // <Line x= > does not remain zero
+        // Maybe
+    };
+    CanvasWrapper.prototype.handleDragStartContour = function (event) {
+        this.prevX = 0;
+        this.prevY = 0;
+    };
+    CanvasWrapper.prototype.handleDragEndContour = function (event, contourIndex) {
+        console.log("move contour 2", [event.target.attrs.x, event.target.attrs.y]);
+        var x = event.target.attrs.x;
+        var y = event.target.attrs.y;
+        event.target.attrs.x = 0;
+        event.target.attrs.y = 0;
+        this.props.setContourPos(contourIndex, x, y);
+        event.target.attrs.x = 0;
+        event.target.attrs.y = 0;
+    };
     CanvasWrapper.prototype.render = function () {
-        //                 return (
-        //                     <div>CanvasWrapper</div>
-        //                 );
-        //             return (
-        //                 <Stage />
-        //             );
-        return (React.createElement(Stage, { width: window.innerWidth, height: window.innerHeight },
-            React.createElement(Layer, null,
-                React.createElement(Text, { text: "react-konva working" }))));
-        //             return (
-        //                 <div id="canvas-wrapper">
-        //                     <canvas ref={this.canvasRef} id="canvas"
-        //                         width="1000"
-        //                         height="1000"
-        //                         onClick={this.click}
-        //                         ></canvas>
-        //                 </div>
-        //             );
+        var _this = this;
+        return (React.createElement("div", { id: "canvas-wrapper" },
+            React.createElement(Stage, { width: window.innerWidth, height: window.innerHeight },
+                React.createElement(Layer, null,
+                    this.props.state.contours.map(function (contour, contourIndex) {
+                        var points = [];
+                        contour.vertexes.forEach(function (vertex) {
+                            points.push(vertex.x);
+                            points.push(vertex.y);
+                        });
+                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, x: 0, y: 0, draggable: true }));
+                    }),
+                    this.props.state.contours.map(function (contour, contourIndex) {
+                        return (React.createElement(Group, { key: contourIndex }, contourIndex === _this.props.state.selectedContour ?
+                            contour.vertexes.map(function (vertex, vertexIndex) { return (React.createElement(Line, { key: vertexIndex, points: [
+                                    0, -5,
+                                    5, 0,
+                                    0, 5,
+                                    -5, 0
+                                ], x: vertex.x, y: vertex.y, fill: "#009999", stroke: "black", strokeWidth: 1, closed: true, onDragMove: function (e) { return _this.handleDragMoveVertex(e, vertexIndex); }, draggable: true })); }) : ""));
+                    })))));
     };
     return CanvasWrapper;
 }(React.Component));
 export default CanvasWrapper;
-// }

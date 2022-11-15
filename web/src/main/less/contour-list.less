@@ -1,0 +1,31 @@
+.contour-list__wrapper {}
+.contour-list {
+    padding: @gap 0;
+    margin: 0;
+}
+.contour-list__item {
+    list-style: none;
+    padding: 1px 0;
+    margin: 0;
+}
+.contour-list__item-title {
+    display: block;
+    padding: @gap;
+    border: @border;
+    border-radius: @borderRadius;
+    background: @menuBgColor;
+    cursor: pointer;
+}
+.contour-list__item__active {
+    .contour-list__item-title {
+        background: @menuItemSelectedBgColor;
+    }
+}
+
+.vertex-list {
+    display: none;
+}
+
+.contour-list__item__active>.vertex-list {
+    display: block;
+}

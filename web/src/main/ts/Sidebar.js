@@ -1,7 +1,3 @@
-// /<reference path="BaseToolSidebar.tsx"/>
-// /<reference path="CreateToolSidebar.tsx"/>
-// /<reference path="SelectToolSidebar.tsx"/>
-// /<reference path="MoveToolSidebar.tsx"/>
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -19,6 +15,7 @@ import React from "react";
 import { CreateToolSidebar } from "./CreateToolSidebar";
 import { MoveToolSidebar } from "./MoveToolSidebar";
 import { SelectToolSidebar } from "./SelectToolSidebar";
+import { ContourList } from "./ContourList";
 var Sidebar = /** @class */ (function (_super) {
     __extends(Sidebar, _super);
     function Sidebar() {
@@ -28,9 +25,9 @@ var Sidebar = /** @class */ (function (_super) {
         return (React.createElement("div", { id: "sidebar" },
             React.createElement(CreateToolSidebar, { isActive: this.props.tool == "create" }),
             React.createElement(SelectToolSidebar, { isActive: this.props.tool == "select" }),
-            React.createElement(MoveToolSidebar, { isActive: this.props.tool == "move" })));
+            React.createElement(MoveToolSidebar, { isActive: this.props.tool == "move" }),
+            React.createElement(ContourList, { contours: this.props.contours, selectContour: this.props.selectContour, selectedContour: this.props.selectedContour })));
     };
     return Sidebar;
 }(React.Component));
 export { Sidebar };
-// }

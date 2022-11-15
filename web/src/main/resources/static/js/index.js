@@ -33733,7 +33733,7 @@
 	  };
 	}
 
-	var __extends$9 = (undefined && undefined.__extends) || (function () {
+	var __extends$a = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
 	        extendStatics = Object.setPrototypeOf ||
 	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -33747,7 +33747,7 @@
 	    };
 	})();
 	var ToolbarButton = /** @class */ (function (_super) {
-	    __extends$9(ToolbarButton, _super);
+	    __extends$a(ToolbarButton, _super);
 	    function ToolbarButton(props) {
 	        var _this = _super.call(this, props) || this;
 	        _this.click = _this.click.bind(_this);
@@ -33771,8 +33771,7 @@
 	}(React.Component));
 	// }
 
-	// /<reference path="ToolbarButton.tsx"/>
-	var __extends$8 = (undefined && undefined.__extends) || (function () {
+	var __extends$9 = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
 	        extendStatics = Object.setPrototypeOf ||
 	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -33786,7 +33785,7 @@
 	    };
 	})();
 	var Toolbar = /** @class */ (function (_super) {
-	    __extends$8(Toolbar, _super);
+	    __extends$9(Toolbar, _super);
 	    function Toolbar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
@@ -33800,6 +33799,30 @@
 	            React.createElement(ToolbarButton, { label: "Show Labels", icon: "fa-eye" })));
 	    };
 	    return Toolbar;
+	}(React.Component));
+
+	var __extends$8 = (undefined && undefined.__extends) || (function () {
+	    var extendStatics = function (d, b) {
+	        extendStatics = Object.setPrototypeOf ||
+	            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+	        return extendStatics(d, b);
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	var BaseToolSidebar = /** @class */ (function (_super) {
+	    __extends$8(BaseToolSidebar, _super);
+	    function BaseToolSidebar() {
+	        return _super !== null && _super.apply(this, arguments) || this;
+	    }
+	    BaseToolSidebar.defaultProps = {
+	        isActive: false
+	    };
+	    return BaseToolSidebar;
 	}(React.Component));
 	// }
 
@@ -33816,16 +33839,19 @@
 	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	    };
 	})();
-	var BaseToolSidebar = /** @class */ (function (_super) {
-	    __extends$7(BaseToolSidebar, _super);
-	    function BaseToolSidebar() {
+	var CreateToolSidebar = /** @class */ (function (_super) {
+	    __extends$7(CreateToolSidebar, _super);
+	    function CreateToolSidebar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
-	    BaseToolSidebar.defaultProps = {
-	        isActive: false
+	    CreateToolSidebar.prototype.render = function () {
+	        return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
+	            React.createElement("h3", null, "Create Tool"),
+	            React.createElement("p", null, "click on canvas to create vertexes of new contour"),
+	            React.createElement("button", null, "Close Contour")));
 	    };
-	    return BaseToolSidebar;
-	}(React.Component));
+	    return CreateToolSidebar;
+	}(BaseToolSidebar));
 	// }
 
 	var __extends$6 = (undefined && undefined.__extends) || (function () {
@@ -33841,18 +33867,17 @@
 	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	    };
 	})();
-	var CreateToolSidebar = /** @class */ (function (_super) {
-	    __extends$6(CreateToolSidebar, _super);
-	    function CreateToolSidebar() {
+	var MoveToolSidebar = /** @class */ (function (_super) {
+	    __extends$6(MoveToolSidebar, _super);
+	    function MoveToolSidebar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
-	    CreateToolSidebar.prototype.render = function () {
+	    MoveToolSidebar.prototype.render = function () {
 	        return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
-	            React.createElement("h3", null, "Create Tool"),
-	            React.createElement("p", null, "click on canvas to create vertexes of new contour"),
-	            React.createElement("button", null, "Close Contour")));
+	            React.createElement("h3", null, "Move Tool"),
+	            React.createElement("p", null, "Drag and drop contour")));
 	    };
-	    return CreateToolSidebar;
+	    return MoveToolSidebar;
 	}(BaseToolSidebar));
 	// }
 
@@ -33869,17 +33894,17 @@
 	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	    };
 	})();
-	var MoveToolSidebar = /** @class */ (function (_super) {
-	    __extends$5(MoveToolSidebar, _super);
-	    function MoveToolSidebar() {
+	var SelectToolSidebar = /** @class */ (function (_super) {
+	    __extends$5(SelectToolSidebar, _super);
+	    function SelectToolSidebar() {
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
-	    MoveToolSidebar.prototype.render = function () {
+	    SelectToolSidebar.prototype.render = function () {
 	        return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
-	            React.createElement("h3", null, "Move Tool"),
-	            React.createElement("p", null, "Drag and drop contour")));
+	            React.createElement("h3", null, "Select Tool"),
+	            React.createElement("p", null, "Click on contour to select and edit vertexes position")));
 	    };
-	    return MoveToolSidebar;
+	    return SelectToolSidebar;
 	}(BaseToolSidebar));
 	// }
 
@@ -33896,24 +33921,30 @@
 	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	    };
 	})();
-	var SelectToolSidebar = /** @class */ (function (_super) {
-	    __extends$4(SelectToolSidebar, _super);
-	    function SelectToolSidebar() {
-	        return _super !== null && _super.apply(this, arguments) || this;
+	var ContourList = /** @class */ (function (_super) {
+	    __extends$4(ContourList, _super);
+	    function ContourList(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.click = _this.click.bind(_this);
+	        return _this;
 	    }
-	    SelectToolSidebar.prototype.render = function () {
-	        return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
-	            React.createElement("h3", null, "Select Tool"),
-	            React.createElement("p", null, "Click on contour to select and edit vertexes position")));
+	    ContourList.prototype.click = function (index) {
+	        this.props.selectContour(index);
 	    };
-	    return SelectToolSidebar;
-	}(BaseToolSidebar));
-	// }
+	    ContourList.prototype.render = function () {
+	        var _this = this;
+	        return (React.createElement("div", { className: "contour-list__wrapper" },
+	            React.createElement("ul", { className: "contour-list" }, this.props.contours.map(function (contour, index) { return (React.createElement("li", { key: index, className: "contour-list__item" + (index == _this.props.selectedContour ? " contour-list__item__active" : "") },
+	                React.createElement("span", { onClick: function () { _this.click(index); }, className: "contour-list__item-title" }, contour.title),
+	                React.createElement("ul", { className: "vertex-list" }, contour.vertexes.map(function (vertex, vertexIndex) { return (React.createElement("li", { key: vertexIndex, className: "vertex-list__item" },
+	                    "x: ",
+	                    vertex.x,
+	                    ", y: ",
+	                    vertex.y)); })))); }))));
+	    };
+	    return ContourList;
+	}(React.Component));
 
-	// /<reference path="BaseToolSidebar.tsx"/>
-	// /<reference path="CreateToolSidebar.tsx"/>
-	// /<reference path="SelectToolSidebar.tsx"/>
-	// /<reference path="MoveToolSidebar.tsx"/>
 	var __extends$3 = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
 	        extendStatics = Object.setPrototypeOf ||
@@ -33936,11 +33967,11 @@
 	        return (React.createElement("div", { id: "sidebar" },
 	            React.createElement(CreateToolSidebar, { isActive: this.props.tool == "create" }),
 	            React.createElement(SelectToolSidebar, { isActive: this.props.tool == "select" }),
-	            React.createElement(MoveToolSidebar, { isActive: this.props.tool == "move" })));
+	            React.createElement(MoveToolSidebar, { isActive: this.props.tool == "move" }),
+	            React.createElement(ContourList, { contours: this.props.contours, selectContour: this.props.selectContour, selectedContour: this.props.selectedContour })));
 	    };
 	    return Sidebar;
 	}(React.Component));
-	// }
 
 	var PI_OVER_180 = Math.PI / 180;
 	function detectBrowser() {
@@ -38996,7 +39027,7 @@
 	FastLayer.prototype.nodeType = 'FastLayer';
 	_registerNode(FastLayer);
 
-	class Group extends Container {
+	class Group$1 extends Container {
 	    _validateAdd(child) {
 	        var type = child.getType();
 	        if (type !== 'Group' && type !== 'Shape') {
@@ -39004,8 +39035,8 @@
 	        }
 	    }
 	}
-	Group.prototype.nodeType = 'Group';
-	_registerNode(Group);
+	Group$1.prototype.nodeType = 'Group';
+	_registerNode(Group$1);
 
 	var now = (function () {
 	    if (glob.performance && glob.performance.now) {
@@ -39669,7 +39700,7 @@
 	    stages,
 	    Layer: Layer$1,
 	    FastLayer,
-	    Group,
+	    Group: Group$1,
 	    DD,
 	    Shape,
 	    shapes,
@@ -39751,7 +39782,7 @@
 	    }
 	    return allPoints;
 	}
-	class Line extends Shape {
+	class Line$1 extends Shape {
 	    constructor(config) {
 	        super(config);
 	        this.on('pointsChange.konva tensionChange.konva closedChange.konva bezierChange.konva', function () {
@@ -39875,13 +39906,13 @@
 	        };
 	    }
 	}
-	Line.prototype.className = 'Line';
-	Line.prototype._attrsAffectingSize = ['points', 'bezier', 'tension'];
-	_registerNode(Line);
-	Factory.addGetterSetter(Line, 'closed', false);
-	Factory.addGetterSetter(Line, 'bezier', false);
-	Factory.addGetterSetter(Line, 'tension', 0, getNumberValidator());
-	Factory.addGetterSetter(Line, 'points', [], getNumberArrayValidator());
+	Line$1.prototype.className = 'Line';
+	Line$1.prototype._attrsAffectingSize = ['points', 'bezier', 'tension'];
+	_registerNode(Line$1);
+	Factory.addGetterSetter(Line$1, 'closed', false);
+	Factory.addGetterSetter(Line$1, 'bezier', false);
+	Factory.addGetterSetter(Line$1, 'tension', 0, getNumberValidator());
+	Factory.addGetterSetter(Line$1, 'points', [], getNumberArrayValidator());
 
 	class Path extends Shape {
 	    constructor(config) {
@@ -40508,7 +40539,7 @@
 	_registerNode(Path);
 	Factory.addGetterSetter(Path, 'data');
 
-	class Arrow extends Line {
+	class Arrow extends Line$1 {
 	    _sceneFunc(ctx) {
 	        super._sceneFunc(ctx);
 	        var PI2 = Math.PI * 2;
@@ -40777,7 +40808,7 @@
 	    'pointerWidth',
 	    'pointerHeight',
 	], CHANGE_KONVA$1 = 'Change.konva', NONE$1 = 'none', UP = 'up', RIGHT$1 = 'right', DOWN = 'down', LEFT$1 = 'left', attrChangeListLen$1 = ATTR_CHANGE_LIST$2.length;
-	class Label extends Group {
+	class Label extends Group$1 {
 	    constructor(config) {
 	        super(config);
 	        this.on('add.konva', function (evt) {
@@ -41259,7 +41290,7 @@
 	    }
 	    return config;
 	}
-	class Text$1 extends Shape {
+	class Text extends Shape {
 	    constructor(config) {
 	        super(checkDefaultFill(config));
 	        this._partialTextX = 0;
@@ -41538,10 +41569,10 @@
 	        return true;
 	    }
 	}
-	Text$1.prototype._fillFunc = _fillFunc$1;
-	Text$1.prototype._strokeFunc = _strokeFunc$1;
-	Text$1.prototype.className = TEXT_UPPER;
-	Text$1.prototype._attrsAffectingSize = [
+	Text.prototype._fillFunc = _fillFunc$1;
+	Text.prototype._strokeFunc = _strokeFunc$1;
+	Text.prototype.className = TEXT_UPPER;
+	Text.prototype._attrsAffectingSize = [
 	    'text',
 	    'fontSize',
 	    'padding',
@@ -41549,22 +41580,22 @@
 	    'lineHeight',
 	    'letterSpacing',
 	];
-	_registerNode(Text$1);
-	Factory.overWriteSetter(Text$1, 'width', getNumberOrAutoValidator());
-	Factory.overWriteSetter(Text$1, 'height', getNumberOrAutoValidator());
-	Factory.addGetterSetter(Text$1, 'fontFamily', 'Arial');
-	Factory.addGetterSetter(Text$1, 'fontSize', 12, getNumberValidator());
-	Factory.addGetterSetter(Text$1, 'fontStyle', NORMAL$1);
-	Factory.addGetterSetter(Text$1, 'fontVariant', NORMAL$1);
-	Factory.addGetterSetter(Text$1, 'padding', 0, getNumberValidator());
-	Factory.addGetterSetter(Text$1, 'align', LEFT);
-	Factory.addGetterSetter(Text$1, 'verticalAlign', TOP);
-	Factory.addGetterSetter(Text$1, 'lineHeight', 1, getNumberValidator());
-	Factory.addGetterSetter(Text$1, 'wrap', WORD);
-	Factory.addGetterSetter(Text$1, 'ellipsis', false, getBooleanValidator());
-	Factory.addGetterSetter(Text$1, 'letterSpacing', 0, getNumberValidator());
-	Factory.addGetterSetter(Text$1, 'text', '', getStringValidator());
-	Factory.addGetterSetter(Text$1, 'textDecoration', '');
+	_registerNode(Text);
+	Factory.overWriteSetter(Text, 'width', getNumberOrAutoValidator());
+	Factory.overWriteSetter(Text, 'height', getNumberOrAutoValidator());
+	Factory.addGetterSetter(Text, 'fontFamily', 'Arial');
+	Factory.addGetterSetter(Text, 'fontSize', 12, getNumberValidator());
+	Factory.addGetterSetter(Text, 'fontStyle', NORMAL$1);
+	Factory.addGetterSetter(Text, 'fontVariant', NORMAL$1);
+	Factory.addGetterSetter(Text, 'padding', 0, getNumberValidator());
+	Factory.addGetterSetter(Text, 'align', LEFT);
+	Factory.addGetterSetter(Text, 'verticalAlign', TOP);
+	Factory.addGetterSetter(Text, 'lineHeight', 1, getNumberValidator());
+	Factory.addGetterSetter(Text, 'wrap', WORD);
+	Factory.addGetterSetter(Text, 'ellipsis', false, getBooleanValidator());
+	Factory.addGetterSetter(Text, 'letterSpacing', 0, getNumberValidator());
+	Factory.addGetterSetter(Text, 'text', '', getStringValidator());
+	Factory.addGetterSetter(Text, 'textDecoration', '');
 
 	var EMPTY_STRING = '', NORMAL = 'normal';
 	function _fillFunc(context) {
@@ -41643,10 +41674,10 @@
 	        return this.textHeight;
 	    }
 	    setText(text) {
-	        return Text$1.prototype.setText.call(this, text);
+	        return Text.prototype.setText.call(this, text);
 	    }
 	    _getContextFont() {
-	        return Text$1.prototype._getContextFont.call(this);
+	        return Text.prototype._getContextFont.call(this);
 	    }
 	    _getTextSize(text) {
 	        var dummyCanvas = this.dummyCanvas;
@@ -42029,7 +42060,7 @@
 	    }
 	    return snapped;
 	}
-	class Transformer extends Group {
+	class Transformer extends Group$1 {
 	    constructor(config) {
 	        super(config);
 	        this._transforming = false;
@@ -42784,7 +42815,7 @@
 	        if (this.getStage() && this._cursorChange) {
 	            this.getStage().content && (this.getStage().content.style.cursor = '');
 	        }
-	        Group.prototype.destroy.call(this);
+	        Group$1.prototype.destroy.call(this);
 	        this.detach();
 	        this._removeEvents();
 	        return this;
@@ -44345,14 +44376,14 @@
 	    Image,
 	    Label,
 	    Tag,
-	    Line,
+	    Line: Line$1,
 	    Path,
 	    Rect,
 	    RegularPolygon,
 	    Ring,
 	    Sprite,
 	    Star,
-	    Text: Text$1,
+	    Text,
 	    TextPath,
 	    Transformer,
 	    Wedge,
@@ -66695,7 +66726,8 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	    });
 	};
 	const Layer = 'Layer';
-	const Text = 'Text';
+	const Group = 'Group';
+	const Line = 'Line';
 	// @ts-ignore
 	const KonvaRenderer = ReactFiberReconciler(HostConfig);
 	KonvaRenderer.injectIntoDevTools({
@@ -66722,91 +66754,77 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	    };
 	})();
-	// from 'react-konva';
-	// from "./inc/ReactKonvaCore";
-	// from "react-konva/ReactKonvaCore";
-	// export namespace contoureditor {
 	var CanvasWrapper = /** @class */ (function (_super) {
 	    __extends$2(CanvasWrapper, _super);
 	    function CanvasWrapper(props) {
 	        var _this = _super.call(this, props) || this;
 	        _this.tempVertexes = [];
+	        _this.handleDragMoveVertex = _this.handleDragMoveVertex.bind(_this);
+	        _this.handleDragMoveContour = _this.handleDragMoveContour.bind(_this);
+	        _this.handleDragStartContour = _this.handleDragStartContour.bind(_this);
+	        _this.handleDragEndContour = _this.handleDragEndContour.bind(_this);
 	        return _this;
-	        //             this.canvasRef = React.createRef();
-	        //             this.click = this.click.bind(this);
 	    }
-	    CanvasWrapper.prototype.componentDidMount = function () {
-	        //             this.canvasElement = this.canvasRef.current;
-	        //             if( !(this.canvasCtx = this.canvasElement.getContext('2d')) ) {
-	        //                 throw "Canvas not initialized";
-	        //             }
-	        //             this.redraw();
+	    CanvasWrapper.prototype.handleDragMoveVertex = function (event, vertexIndex) {
+	        this.props.setVertexPos(vertexIndex, event.target.attrs.x, event.target.attrs.y);
 	    };
-	    //         public redraw() {
-	    //             let ctx = this.canvasCtx;
-	    //             ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
-	    //             ctx.rect(10, 10, 150, 100);
-	    //             ctx.stroke();
-	    //
-	    //             ctx.beginPath();
-	    //             let first:boolean = true;
-	    //             for( let key in this.tempVertexes ) {
-	    //                 let vertex:any = this.tempVertexes[key];
-	    //                 if(first) {
-	    //                     ctx.moveTo( vertex.x, vertex.y);
-	    //                     first = false;
-	    //                     continue;
-	    //                 }
-	    //                 ctx.lineTo( vertex.x, vertex.y );
-	    //             }
-	    // //             ctx.closePath();
-	    //             ctx.stroke();
-	    //
-	    //             for( let key in this.tempVertexes ) {
-	    //                 let vertex:any = this.tempVertexes[key];
-	    //                 let x = vertex.x;
-	    //                 let y = vertex.y;
-	    //                 ctx.fillStyle = '#fff';
-	    //                 ctx.beginPath();
-	    //                 ctx.moveTo(x, y+5);
-	    //                 ctx.lineTo(x+5,y);
-	    //                 ctx.lineTo(x, y-5);
-	    //                 ctx.lineTo(x-5, y);
-	    //                 ctx.closePath();
-	    //                 ctx.fill();
-	    //                 ctx.stroke();
-	    //             }
-	    // //             ctx.fill();
-	    // //             ctx.stroke();
-	    //         }
-	    //         public click(event:any) {
-	    //             this.tempVertexes.push( { x: event.clientX - event.target.offsetLeft , y: event.clientY - event.target.offsetTop } );
-	    //             console.log(this.tempVertexes);
-	    //             this.redraw();
-	    //         }
+	    CanvasWrapper.prototype.handleDragMoveContour = function (event, contourIndex) {
+	        //         console.log("move contour", [event.target.attrs.x,  event.target.attrs.y]);
+	        //         let x = event.target.attrs.x;
+	        //         let y = event.target.attrs.y;
+	        //         event.target.attrs.x = 0;
+	        //         event.target.attrs.y = 0;
+	        //         console.log("move contour 2", [event.target.attrs.x,  event.target.attrs.y]);
+	        // //         let stage = event.target.getStage();
+	        // //         stage.getPointerPosition().x;
+	        // //         this.props.setContourPos( contourIndex, x - this.prevX, y - this.prevY);
+	        //         this.prevX = x;
+	        //         this.prevY = y;
+	        // kind of works but blinking and does not match cursor location
+	        // need better solution
+	        // problem is we are moving contour zero point together with vertexes
+	        // <Line x= > does not remain zero
+	        // Maybe
+	    };
+	    CanvasWrapper.prototype.handleDragStartContour = function (event) {
+	        this.prevX = 0;
+	        this.prevY = 0;
+	    };
+	    CanvasWrapper.prototype.handleDragEndContour = function (event, contourIndex) {
+	        console.log("move contour 2", [event.target.attrs.x, event.target.attrs.y]);
+	        var x = event.target.attrs.x;
+	        var y = event.target.attrs.y;
+	        event.target.attrs.x = 0;
+	        event.target.attrs.y = 0;
+	        this.props.setContourPos(contourIndex, x, y);
+	        event.target.attrs.x = 0;
+	        event.target.attrs.y = 0;
+	    };
 	    CanvasWrapper.prototype.render = function () {
-	        //                 return (
-	        //                     <div>CanvasWrapper</div>
-	        //                 );
-	        //             return (
-	        //                 <Stage />
-	        //             );
-	        return (React.createElement(Stage, { width: window.innerWidth, height: window.innerHeight },
-	            React.createElement(Layer, null,
-	                React.createElement(Text, { text: "react-konva working" }))));
-	        //             return (
-	        //                 <div id="canvas-wrapper">
-	        //                     <canvas ref={this.canvasRef} id="canvas"
-	        //                         width="1000"
-	        //                         height="1000"
-	        //                         onClick={this.click}
-	        //                         ></canvas>
-	        //                 </div>
-	        //             );
+	        var _this = this;
+	        return (React.createElement("div", { id: "canvas-wrapper" },
+	            React.createElement(Stage, { width: window.innerWidth, height: window.innerHeight },
+	                React.createElement(Layer, null,
+	                    this.props.state.contours.map(function (contour, contourIndex) {
+	                        var points = [];
+	                        contour.vertexes.forEach(function (vertex) {
+	                            points.push(vertex.x);
+	                            points.push(vertex.y);
+	                        });
+	                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, x: 0, y: 0, draggable: true }));
+	                    }),
+	                    this.props.state.contours.map(function (contour, contourIndex) {
+	                        return (React.createElement(Group, { key: contourIndex }, contourIndex === _this.props.state.selectedContour ?
+	                            contour.vertexes.map(function (vertex, vertexIndex) { return (React.createElement(Line, { key: vertexIndex, points: [
+	                                    0, -5,
+	                                    5, 0,
+	                                    0, 5,
+	                                    -5, 0
+	                                ], x: vertex.x, y: vertex.y, fill: "#009999", stroke: "black", strokeWidth: 1, closed: true, onDragMove: function (e) { return _this.handleDragMoveVertex(e, vertexIndex); }, draggable: true })); }) : ""));
+	                    })))));
 	    };
 	    return CanvasWrapper;
 	}(React.Component));
-	// }
 
 	var __extends$1 = (undefined && undefined.__extends) || (function () {
 	    var extendStatics = function (d, b) {
@@ -66823,8 +66841,11 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	})();
 	var MainMenu = /** @class */ (function (_super) {
 	    __extends$1(MainMenu, _super);
-	    function MainMenu() {
-	        return _super !== null && _super.apply(this, arguments) || this;
+	    function MainMenu(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.saveClick = _this.saveClick.bind(_this);
+	        _this.loadClick = _this.loadClick.bind(_this);
+	        return _this;
 	    }
 	    MainMenu.prototype.saveClick = function () {
 	        console.log("save click");
@@ -66832,12 +66853,22 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	            method: 'PUT',
 	            headers: { 'Content-Type': 'application/json' },
 	            body: JSON.stringify([
-	                { title: "TestWebContour1" }
+	                { title: "TestWebContour1WithVertexes", vertexes: [
+	                        { x: 10, y: 10 },
+	                        { x: 20, y: 10 },
+	                        { x: 10, y: 20 },
+	                    ] },
+	                { title: "TestWebContour2WithVertexes", vertexes: [
+	                        { x: 110, y: 110 },
+	                        { x: 120, y: 110 },
+	                        { x: 110, y: 220 },
+	                    ] }
 	            ])
 	        };
 	        fetch("/api/contour/list", requestOptions);
 	    };
 	    MainMenu.prototype.loadClick = function () {
+	        var _this = this;
 	        console.log("load click");
 	        var requestOptions = {
 	            method: 'GET',
@@ -66849,6 +66880,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	            .then(function (data) {
 	            console.log("Load response received");
 	            console.log(data);
+	            _this.props.setContours(data);
 	        }
 	        //             this.setState({ postId: data.id })
 	        );
@@ -66885,103 +66917,78 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	})();
 	var App = /** @class */ (function (_super) {
 	    __extends(App, _super);
-	    //         public static defaultState = {
-	    //             tool: "create"
-	    //         }
 	    function App(props) {
 	        var _this = _super.call(this, props) || this;
 	        _this.state = {
-	            tool: "create"
+	            tool: "create",
+	            contours: [],
+	            selectedContour: null
 	        };
 	        _this.setTool = _this.setTool.bind(_this);
+	        _this.setContours = _this.setContours.bind(_this);
+	        _this.selectContour = _this.selectContour.bind(_this);
+	        _this.setVertexPos = _this.setVertexPos.bind(_this);
+	        _this.setContourPos = _this.setContourPos.bind(_this);
 	        return _this;
 	    }
 	    App.prototype.setTool = function (tool) {
 	        this.setState(function (prevState) {
-	            return { tool: tool };
+	            return {
+	                tool: tool,
+	                contours: prevState.contours,
+	                selectedContour: prevState.selectedContour
+	            };
 	        });
 	    };
-	    //         public constructor(props) {
-	    //             super(props);
-	    //             this.state = { items: [] };
-	    //             this.add = this.add.bind(this);
-	    //             this.update = this.update.bind(this);
-	    //             this.remove = this.remove.bind(this);
-	    //             this.loadList();
-	    //         }
-	    //
-	    //         public loadList() {
-	    //             this.sendData("/list", {}, ( responce )=>{
-	    //                 console.log( "Responce is:", responce );
-	    //                 let data = JSON.parse( responce );
-	    //                 console.log( "Data is:", data );
-	    //                 this.setState( prevState => ({
-	    //                         items: [ ...prevState.items, ...data.items ]
-	    //                     })
-	    //                 );
-	    //             });
-	    //         }
-	    //
-	    //         public sendData( url, data:any, callback:any = (responce)=>{ console.log( responce); } ) {
-	    //             let token = document.querySelector('meta[name="token"]').getAttribute("content");
-	    //             let issueId = document.querySelector('meta[name="issueId"]').getAttribute("content");
-	    //             data.issueId = issueId;
-	    //             fetch( url, {
-	    //                 method: "POST",
-	    //                 headers: {
-	    //                     'Content-Type': 'application/json;charset=utf-8',
-	    //                     "Authorization": "JWT " + token
-	    //                 },
-	    //                 body: JSON.stringify( data )
-	    //             }).then(responce => responce.text()).then( callback )
-	    //             .catch((error)=>{
-	    //                 console.error('Error:', error);
-	    //             });
-	    //         }
-	    //
-	    //         public add( newItem ) {
-	    // //             this.setState(prevState => ({
-	    // //                 items: [...prevState.items, newItem]
-	    // //             }));
-	    //             this.sendData("/addnewitem", newItem, ( responce ) => {
-	    //                 let data = JSON.parse( responce );
-	    //                 newItem.id = data.id;
-	    //                 this.setState(prevState => ({
-	    //                     items: [...prevState.items, newItem]
-	    //                 }));
-	    //             } );
-	    //             console.log( this.state.items );
-	    //         }
-	    //
-	    //         public update( index, item) {
-	    //             this.setState( prevState => {
-	    //                 prevState.items[index] = { ...prevState.items[index], ...item };
-	    //                 return prevState;
-	    //             });
-	    //             let updateItem = { ...item, index: index };
-	    //             this.sendData("/updateitem", updateItem );
-	    //             console.log( this.state.items );
-	    //         }
-	    //
-	    //         public remove( index ) {
-	    //             let id = this.state.items[ index ].id;
-	    //             this.setState( prevState => {
-	    //                 prevState.items.splice( index, 1 );
-	    //                 return prevState;
-	    //             });
-	    //             this.sendData( "/removeitem", { id: id });
-	    //             console.log( this.state.items );
-	    //         }
+	    App.prototype.setContours = function (contours) {
+	        console.log("setContours");
+	        this.setState(function (prevState) {
+	            return {
+	                tool: prevState.tool,
+	                contours: contours,
+	                selectedContour: prevState.selectedContour
+	            };
+	        });
+	    };
+	    /**
+	    select contour and make it active
+	    */
+	    App.prototype.selectContour = function (index) {
+	        this.setState(function (prevState) {
+	            return {
+	                tool: prevState.tool,
+	                contours: prevState.contours,
+	                selectedContour: index
+	            };
+	        });
+	    };
+	    App.prototype.setVertexPos = function (vertexIndex, x, y) {
+	        this.setState(function (prevState) {
+	            var newState = prevState;
+	            newState.contours[newState.selectedContour].vertexes[vertexIndex].x = x;
+	            newState.contours[newState.selectedContour].vertexes[vertexIndex].y = y;
+	            return newState;
+	        });
+	    };
+	    App.prototype.setContourPos = function (contourIndex, x, y) {
+	        this.setState(function (prevState) {
+	            var newState = prevState;
+	            for (var i = 0; i < newState.contours[contourIndex].vertexes.length; i++) {
+	                newState.contours[contourIndex].vertexes[i].x += x;
+	                newState.contours[contourIndex].vertexes[i].y += y;
+	            }
+	            return newState;
+	        });
+	    };
 	    App.prototype.render = function () {
 	        return (React.createElement("div", { id: "main-wrapper" },
-	            React.createElement(MainMenu, null),
+	            React.createElement(MainMenu, { setContours: this.setContours }),
 	            React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
-	            React.createElement(Sidebar, { tool: this.state.tool }),
-	            React.createElement(CanvasWrapper, null)));
+	            React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour }),
+	            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourPos: this.setContourPos })));
 	    };
 	    return App;
 	}(React.Component));
-	// }
 
 	// /<reference path="3rdparty/react.development.js" />
 	// alert(2);

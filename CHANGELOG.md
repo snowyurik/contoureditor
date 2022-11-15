@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [2022-11-15]
+### Added
+ - Edit contour: move individual vertexes
+
 ## [2022-11-05]
 ### Added
  - REST for saving contours, linked to authorised user

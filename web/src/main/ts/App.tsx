@@ -1,6 +1,3 @@
-// /<reference path="Toolbar.tsx"/>
-// /<reference path="Sidebar.tsx"/>
-// /<reference path="CanvasWrapper.tsx"/>
 import React, { Component } from "react";
 import { render } from "react-dom";
 import { Toolbar } from "./Toolbar";
@@ -8,119 +5,100 @@ import { Sidebar } from "./Sidebar";
 import CanvasWrapper from "./CanvasWrapper";
 import { MainMenu } from "./MainMenu";
 
-// namespace contoureditor {
+interface AppState {
+    tool: string,
+    contours: any,
+    selectedContour: number,
+}
 
-    interface AppState {
-        tool: string
+export class App extends React.Component<{},AppState> {
+
+
+    public constructor(props) {
+        super(props);
+        this.state = {
+            tool: "create",
+            contours: [],
+            selectedContour: null,
+        };
+        this.setTool = this.setTool.bind(this);
+        this.setContours = this.setContours.bind(this);
+        this.selectContour = this.selectContour.bind(this);
+        this.setVertexPos = this.setVertexPos.bind(this);
+        this.setContourPos = this.setContourPos.bind(this);
     }
 
-    export class App extends React.Component<{},AppState> {
 
-
-//         public static defaultState = {
-//             tool: "create"
-//         }
-
-        public constructor(props) {
-            super(props);
-            this.state = {
-                tool: "create"
+    public setTool(tool:string) {
+        this.setState( prevState => {
+            return {
+                tool: tool,
+                contours: prevState.contours,
+                selectedContour: prevState.selectedContour,
             };
-            this.setTool = this.setTool.bind(this);
-        }
+        });
+    }
 
+    public setContours(contours:any) {
+        console.log("setContours");
+        this.setState( prevState => {
+            return {
+                tool: prevState.tool,
+                contours: contours,
+                selectedContour: prevState.selectedContour,
+            }
+        });
+    }
 
-        public setTool(tool:string) {
-            this.setState( prevState => {
-                return { tool: tool };
-            });
-        }
+    /**
+    select contour and make it active
+    */
+    public selectContour(index:number) {
+        this.setState( prevState => {
+            return {
+                tool: prevState.tool,
+                contours: prevState.contours,
+                selectedContour: index,
+            }
+        });
+    }
 
+    public setVertexPos(vertexIndex:number, x:number, y:number) {
+        this.setState( prevState => {
+            let newState = prevState;
+            newState.contours[newState.selectedContour].vertexes[vertexIndex].x = x;
+            newState.contours[newState.selectedContour].vertexes[vertexIndex].y = y;
+            return newState;
+        });
+    }
+    public setContourPos(contourIndex:number, x:number, y:number) {
+        this.setState( prevState => {
+            let newState = prevState;
+            for(let i=0; i< newState.contours[contourIndex].vertexes.length; i++) {
+                newState.contours[contourIndex].vertexes[i].x += x;
+                newState.contours[contourIndex].vertexes[i].y += y;
+            }
+            return newState;
+        });
+    }
 
-        
-//         public constructor(props) {
-//             super(props);
-//             this.state = { items: [] };
-//             this.add = this.add.bind(this);
-//             this.update = this.update.bind(this);
-//             this.remove = this.remove.bind(this);
-//             this.loadList();
-//         }
-//
-//         public loadList() {
-//             this.sendData("/list", {}, ( responce )=>{
-//                 console.log( "Responce is:", responce );
-//                 let data = JSON.parse( responce );
-//                 console.log( "Data is:", data );
-//                 this.setState( prevState => ({
-//                         items: [ ...prevState.items, ...data.items ]
-//                     })
-//                 );
-//             });
-//         }
-//
-//         public sendData( url, data:any, callback:any = (responce)=>{ console.log( responce); } ) {
-//             let token = document.querySelector('meta[name="token"]').getAttribute("content");
-//             let issueId = document.querySelector('meta[name="issueId"]').getAttribute("content");
-//             data.issueId = issueId;
-//             fetch( url, {
-//                 method: "POST",
-//                 headers: {
-//                     'Content-Type': 'application/json;charset=utf-8',
-//                     "Authorization": "JWT " + token
-//                 },
-//                 body: JSON.stringify( data )
-//             }).then(responce => responce.text()).then( callback )
-//             .catch((error)=>{
-//                 console.error('Error:', error);
-//             });
-//         }
-//
-//         public add( newItem ) {
-// //             this.setState(prevState => ({
-// //                 items: [...prevState.items, newItem]
-// //             }));
-//             this.sendData("/addnewitem", newItem, ( responce ) => {
-//                 let data = JSON.parse( responce );
-//                 newItem.id = data.id;
-//                 this.setState(prevState => ({
-//                     items: [...prevState.items, newItem]
-//                 }));
-//             } );
-//             console.log( this.state.items );
-//         }
-//
-//         public update( index, item) {
-//             this.setState( prevState => {
-//                 prevState.items[index] = { ...prevState.items[index], ...item };
-//                 return prevState;
-//             });
-//             let updateItem = { ...item, index: index };
-//             this.sendData("/updateitem", updateItem );
-//             console.log( this.state.items );
-//         }
-//
-//         public remove( index ) {
-//             let id = this.state.items[ index ].id;
-//             this.setState( prevState => {
-//                 prevState.items.splice( index, 1 );
-//                 return prevState;
-//             });
-//             this.sendData( "/removeitem", { id: id });
-//             console.log( this.state.items );
-//         }
-        
-        public render() {
-            return (
-                <div id="main-wrapper">
-                    <MainMenu />
-                    <Toolbar tool={this.state.tool} setTool={this.setTool} />
-                    <Sidebar tool={this.state.tool} />
-                    <CanvasWrapper/>
-                </div>
-            );
-        }
-    } 
-    
-// }
+    public render() {
+        return (
+            <div id="main-wrapper">
+                <MainMenu setContours={this.setContours} />
+                <Toolbar tool={this.state.tool} setTool={this.setTool} />
+                <Sidebar tool={this.state.tool}
+                    contours={this.state.contours}
+                    selectContour={this.selectContour}
+                    selectedContour={this.state.selectedContour}
+                    />
+                <CanvasWrapper state={this.state}
+                    setContours={this.setContours}
+                    setVertexPos={this.setVertexPos}
+                    setContourPos={this.setContourPos}
+                    />
+            </div>
+        );
+    }
+}
 

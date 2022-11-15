@@ -106,3 +106,29 @@ div {
 .menu__item:hover > .menu__submenu {
   display: block;
 }
+.contour-list {
+  padding: 10px 0;
+  margin: 0;
+}
+.contour-list__item {
+  list-style: none;
+  padding: 1px 0;
+  margin: 0;
+}
+.contour-list__item-title {
+  display: block;
+  padding: 10px;
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  background: #cccccc;
+  cursor: pointer;
+}
+.contour-list__item__active .contour-list__item-title {
+  background: #dddddd;
+}
+.vertex-list {
+  display: none;
+}
+.contour-list__item__active > .vertex-list {
+  display: block;
+}
