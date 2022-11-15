@@ -4,6 +4,7 @@
 ### Added
  - Edit contour: move individual vertexes
  - Edit contour: move entire contour
+ - Select contour by clicking on it
 
 ## [2022-11-05]
 ### Added

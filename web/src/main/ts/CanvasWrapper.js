@@ -22,6 +22,7 @@ var CanvasWrapper = /** @class */ (function (_super) {
         _this.handleDragMoveContour = _this.handleDragMoveContour.bind(_this);
         _this.handleDragStartContour = _this.handleDragStartContour.bind(_this);
         _this.handleDragEndContour = _this.handleDragEndContour.bind(_this);
+        _this.handleClickContour = _this.handleClickContour.bind(_this);
         return _this;
     }
     CanvasWrapper.prototype.handleDragMoveVertex = function (event, vertexIndex) {
@@ -54,6 +55,10 @@ var CanvasWrapper = /** @class */ (function (_super) {
     CanvasWrapper.prototype.handleDragEndContour = function (event, contourIndex) {
         this.props.collapseContour(contourIndex);
     };
+    CanvasWrapper.prototype.handleClickContour = function (event, contourIndex) {
+        console.log(contourIndex);
+        this.props.selectContour(contourIndex);
+    };
     CanvasWrapper.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { id: "canvas-wrapper" },
@@ -65,7 +70,7 @@ var CanvasWrapper = /** @class */ (function (_super) {
                             points.push(vertex.x);
                             points.push(vertex.y);
                         });
-                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, x: contour.x, y: contour.y, draggable: true }));
+                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, onMouseDown: function (e) { return _this.handleClickContour(e, contourIndex); }, x: contour.x, y: contour.y, draggable: true }));
                     }),
                     this.props.state.contours.map(function (contour, contourIndex) {
                         return (React.createElement(Group, { key: contourIndex }, contourIndex === _this.props.state.selectedContour ?

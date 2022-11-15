@@ -107,7 +107,7 @@ var App = /** @class */ (function (_super) {
             React.createElement(MainMenu, { setContours: this.setContours }),
             React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
             React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour }),
-            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour })));
+            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour, selectContour: this.selectContour })));
     };
     return App;
 }(React.Component));

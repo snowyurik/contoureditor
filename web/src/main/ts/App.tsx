@@ -119,6 +119,7 @@ export class App extends React.Component<{},AppState> {
                     setVertexPos={this.setVertexPos}
                     setContourDragPos={this.setContourDragPos}
                     collapseContour={this.collapseContour}
+                    selectContour={this.selectContour}
                     />
             </div>
         );

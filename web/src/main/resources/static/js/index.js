@@ -66763,6 +66763,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	        _this.handleDragMoveContour = _this.handleDragMoveContour.bind(_this);
 	        _this.handleDragStartContour = _this.handleDragStartContour.bind(_this);
 	        _this.handleDragEndContour = _this.handleDragEndContour.bind(_this);
+	        _this.handleClickContour = _this.handleClickContour.bind(_this);
 	        return _this;
 	    }
 	    CanvasWrapper.prototype.handleDragMoveVertex = function (event, vertexIndex) {
@@ -66795,6 +66796,10 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	    CanvasWrapper.prototype.handleDragEndContour = function (event, contourIndex) {
 	        this.props.collapseContour(contourIndex);
 	    };
+	    CanvasWrapper.prototype.handleClickContour = function (event, contourIndex) {
+	        console.log(contourIndex);
+	        this.props.selectContour(contourIndex);
+	    };
 	    CanvasWrapper.prototype.render = function () {
 	        var _this = this;
 	        return (React.createElement("div", { id: "canvas-wrapper" },
@@ -66806,7 +66811,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	                            points.push(vertex.x);
 	                            points.push(vertex.y);
 	                        });
-	                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, x: contour.x, y: contour.y, draggable: true }));
+	                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, onMouseDown: function (e) { return _this.handleClickContour(e, contourIndex); }, x: contour.x, y: contour.y, draggable: true }));
 	                    }),
 	                    this.props.state.contours.map(function (contour, contourIndex) {
 	                        return (React.createElement(Group, { key: contourIndex }, contourIndex === _this.props.state.selectedContour ?
@@ -67001,7 +67006,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	            React.createElement(MainMenu, { setContours: this.setContours }),
 	            React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
 	            React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour }),
-	            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour })));
+	            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour, selectContour: this.selectContour })));
 	    };
 	    return App;
 	}(React.Component));

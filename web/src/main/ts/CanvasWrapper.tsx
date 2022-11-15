@@ -10,6 +10,7 @@ export interface CanvasWrapperProps {
     setVertexPos: (index:number, x:number, y:number) => void;
     setContourDragPos: (index:number, x:number, y:number) => void;
     collapseContour: (index:number) => void;
+    selectContour: (index:number) => void;
 }
 
 export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}> {
@@ -26,6 +27,7 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
         this.handleDragMoveContour = this.handleDragMoveContour.bind(this);
         this.handleDragStartContour = this.handleDragStartContour.bind(this);
         this.handleDragEndContour = this.handleDragEndContour.bind(this);
+        this.handleClickContour = this.handleClickContour.bind(this);
     }
 
     public handleDragMoveVertex(event:any, vertexIndex: number) {
@@ -33,24 +35,6 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
     }
     public handleDragMoveContour(event:any, contourIndex:number){
         this.props.setContourDragPos( contourIndex, event.target.attrs.x,  event.target.attrs.y );
-//         console.log("move contour", [event.target.attrs.x,  event.target.attrs.y]);
-//         let x = event.target.attrs.x;
-//         let y = event.target.attrs.y;
-//         event.target.attrs.x = 0;
-//         event.target.attrs.y = 0;
-//         console.log("move contour 2", [event.target.attrs.x,  event.target.attrs.y]);
-// //         let stage = event.target.getStage();
-// //         stage.getPointerPosition().x;
-// //         this.props.setContourPos( contourIndex, x - this.prevX, y - this.prevY);
-//         this.prevX = x;
-//         this.prevY = y;
-        // kind of works but blinking and does not match cursor location
-        // need better solution
-        // problem is we are moving contour zero point together with vertexes
-        // <Line x= > does not remain zero
-        // Maybe
-
-        // Maybe we can add Line.x/y to data model temporary and "collapse" contour back to normal on drag end?
     }
 
     public handleDragStartContour(event:any) {
@@ -60,6 +44,10 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
 
     public handleDragEndContour(event:any, contourIndex:number) {
         this.props.collapseContour( contourIndex );
+    }
+
+    public handleClickContour(event:any, contourIndex:number) {
+        this.props.selectContour( contourIndex );
     }
 
     public render() {
@@ -84,6 +72,7 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
                                 onDragStart={this.handleDragStartContour}
                                 onDragMove={ e=>this.handleDragMoveContour(e, contourIndex) }
                                 onDragEnd={ e=>this.handleDragEndContour(e, contourIndex) }
+                                onMouseDown={ e=>this.handleClickContour(e, contourIndex) }
                                 x={contour.x}
                                 y={contour.y}
                                 draggable
