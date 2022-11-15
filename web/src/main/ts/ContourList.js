@@ -29,9 +29,9 @@ var ContourList = /** @class */ (function (_super) {
                 React.createElement("span", { onClick: function () { _this.click(index); }, className: "contour-list__item-title" }, contour.title),
                 React.createElement("ul", { className: "vertex-list" }, contour.vertexes.map(function (vertex, vertexIndex) { return (React.createElement("li", { key: vertexIndex, className: "vertex-list__item" },
                     "x: ",
-                    vertex.x,
+                    contour.x + vertex.x,
                     ", y: ",
-                    vertex.y)); })))); }))));
+                    contour.x + vertex.y)); })))); }))));
     };
     return ContourList;
 }(React.Component));

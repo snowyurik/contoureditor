@@ -8,7 +8,8 @@ export interface CanvasWrapperProps {
     setContours: (contours:any) => void;
     state: any;
     setVertexPos: (index:number, x:number, y:number) => void;
-    setContourPos: (index:number, x:number, y:number) => void;
+    setContourDragPos: (index:number, x:number, y:number) => void;
+    collapseContour: (index:number) => void;
 }
 
 export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}> {
@@ -31,6 +32,7 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
         this.props.setVertexPos(vertexIndex,  event.target.attrs.x,  event.target.attrs.y);
     }
     public handleDragMoveContour(event:any, contourIndex:number){
+        this.props.setContourDragPos( contourIndex, event.target.attrs.x,  event.target.attrs.y );
 //         console.log("move contour", [event.target.attrs.x,  event.target.attrs.y]);
 //         let x = event.target.attrs.x;
 //         let y = event.target.attrs.y;
@@ -47,6 +49,8 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
         // problem is we are moving contour zero point together with vertexes
         // <Line x= > does not remain zero
         // Maybe
+
+        // Maybe we can add Line.x/y to data model temporary and "collapse" contour back to normal on drag end?
     }
 
     public handleDragStartContour(event:any) {
@@ -55,14 +59,7 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
     }
 
     public handleDragEndContour(event:any, contourIndex:number) {
-        console.log("move contour 2", [event.target.attrs.x,  event.target.attrs.y]);
-        let x = event.target.attrs.x;
-        let y = event.target.attrs.y;
-        event.target.attrs.x = 0;
-        event.target.attrs.y = 0;
-        this.props.setContourPos( contourIndex, x, y);
-        event.target.attrs.x = 0;
-        event.target.attrs.y = 0;
+        this.props.collapseContour( contourIndex );
     }
 
     public render() {
@@ -87,8 +84,8 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
                                 onDragStart={this.handleDragStartContour}
                                 onDragMove={ e=>this.handleDragMoveContour(e, contourIndex) }
                                 onDragEnd={ e=>this.handleDragEndContour(e, contourIndex) }
-                                x={0}
-                                y={0}
+                                x={contour.x}
+                                y={contour.y}
                                 draggable
                             />
                             )
@@ -110,8 +107,8 @@ export default class CanvasWrapper extends React.Component<CanvasWrapperProps,{}
                                         0, 5,
                                         -5, 0
                                         ]}
-                                    x={vertex.x}
-                                    y={vertex.y}
+                                    x={vertex.x + contour.x }
+                                    y={vertex.y + contour.y }
                                     fill="#009999"
                                     stroke="black"
                                     strokeWidth={1}

@@ -3,6 +3,7 @@
 ## [2022-11-15]
 ### Added
  - Edit contour: move individual vertexes
+ - Edit contour: move entire contour
 
 ## [2022-11-05]
 ### Added

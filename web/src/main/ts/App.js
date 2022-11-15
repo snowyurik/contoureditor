@@ -29,7 +29,8 @@ var App = /** @class */ (function (_super) {
         _this.setContours = _this.setContours.bind(_this);
         _this.selectContour = _this.selectContour.bind(_this);
         _this.setVertexPos = _this.setVertexPos.bind(_this);
-        _this.setContourPos = _this.setContourPos.bind(_this);
+        _this.setContourDragPos = _this.setContourDragPos.bind(_this);
+        _this.collapseContour = _this.collapseContour.bind(_this);
         return _this;
     }
     App.prototype.setTool = function (tool) {
@@ -41,12 +42,20 @@ var App = /** @class */ (function (_super) {
             };
         });
     };
+    App.prototype.sanitizeContours = function (contours) {
+        for (var i = 0; i < contours.length; i++) {
+            contours[i].x = 0;
+            contours[i].y = 0;
+        }
+        return contours;
+    };
     App.prototype.setContours = function (contours) {
+        var _this = this;
         console.log("setContours");
         this.setState(function (prevState) {
             return {
                 tool: prevState.tool,
-                contours: contours,
+                contours: _this.sanitizeContours(contours),
                 selectedContour: prevState.selectedContour
             };
         });
@@ -71,13 +80,25 @@ var App = /** @class */ (function (_super) {
             return newState;
         });
     };
-    App.prototype.setContourPos = function (contourIndex, x, y) {
+    App.prototype.setContourDragPos = function (contourIndex, x, y) {
         this.setState(function (prevState) {
             var newState = prevState;
+            newState.contours[contourIndex].x = x;
+            newState.contours[contourIndex].y = y;
+            return newState;
+        });
+    };
+    App.prototype.collapseContour = function (contourIndex) {
+        this.setState(function (prevState) {
+            var newState = prevState;
+            var x = newState.contours[contourIndex].x;
+            var y = newState.contours[contourIndex].y;
             for (var i = 0; i < newState.contours[contourIndex].vertexes.length; i++) {
                 newState.contours[contourIndex].vertexes[i].x += x;
                 newState.contours[contourIndex].vertexes[i].y += y;
             }
+            newState.contours[contourIndex].x = 0;
+            newState.contours[contourIndex].y = 0;
             return newState;
         });
     };
@@ -86,7 +107,7 @@ var App = /** @class */ (function (_super) {
             React.createElement(MainMenu, { setContours: this.setContours }),
             React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
             React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour }),
-            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourPos: this.setContourPos })));
+            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour })));
     };
     return App;
 }(React.Component));

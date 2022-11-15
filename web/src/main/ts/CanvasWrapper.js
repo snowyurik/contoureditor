@@ -28,6 +28,7 @@ var CanvasWrapper = /** @class */ (function (_super) {
         this.props.setVertexPos(vertexIndex, event.target.attrs.x, event.target.attrs.y);
     };
     CanvasWrapper.prototype.handleDragMoveContour = function (event, contourIndex) {
+        this.props.setContourDragPos(contourIndex, event.target.attrs.x, event.target.attrs.y);
         //         console.log("move contour", [event.target.attrs.x,  event.target.attrs.y]);
         //         let x = event.target.attrs.x;
         //         let y = event.target.attrs.y;
@@ -44,20 +45,14 @@ var CanvasWrapper = /** @class */ (function (_super) {
         // problem is we are moving contour zero point together with vertexes
         // <Line x= > does not remain zero
         // Maybe
+        // Maybe we can add Line.x/y to data model temporary and "collapse" contour back to normal on drag end?
     };
     CanvasWrapper.prototype.handleDragStartContour = function (event) {
         this.prevX = 0;
         this.prevY = 0;
     };
     CanvasWrapper.prototype.handleDragEndContour = function (event, contourIndex) {
-        console.log("move contour 2", [event.target.attrs.x, event.target.attrs.y]);
-        var x = event.target.attrs.x;
-        var y = event.target.attrs.y;
-        event.target.attrs.x = 0;
-        event.target.attrs.y = 0;
-        this.props.setContourPos(contourIndex, x, y);
-        event.target.attrs.x = 0;
-        event.target.attrs.y = 0;
+        this.props.collapseContour(contourIndex);
     };
     CanvasWrapper.prototype.render = function () {
         var _this = this;
@@ -70,7 +65,7 @@ var CanvasWrapper = /** @class */ (function (_super) {
                             points.push(vertex.x);
                             points.push(vertex.y);
                         });
-                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, x: 0, y: 0, draggable: true }));
+                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, x: contour.x, y: contour.y, draggable: true }));
                     }),
                     this.props.state.contours.map(function (contour, contourIndex) {
                         return (React.createElement(Group, { key: contourIndex }, contourIndex === _this.props.state.selectedContour ?
@@ -79,7 +74,7 @@ var CanvasWrapper = /** @class */ (function (_super) {
                                     5, 0,
                                     0, 5,
                                     -5, 0
-                                ], x: vertex.x, y: vertex.y, fill: "#009999", stroke: "black", strokeWidth: 1, closed: true, onDragMove: function (e) { return _this.handleDragMoveVertex(e, vertexIndex); }, draggable: true })); }) : ""));
+                                ], x: vertex.x + contour.x, y: vertex.y + contour.y, fill: "#009999", stroke: "black", strokeWidth: 1, closed: true, onDragMove: function (e) { return _this.handleDragMoveVertex(e, vertexIndex); }, draggable: true })); }) : ""));
                     })))));
     };
     return CanvasWrapper;

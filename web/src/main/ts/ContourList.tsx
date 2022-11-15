@@ -30,7 +30,7 @@ export class ContourList extends React.Component<ContourListProps,{}>{
                             <ul className="vertex-list">
                             { contour.vertexes.map( (vertex, vertexIndex)=>(
                                 <li key={vertexIndex} className="vertex-list__item">
-                                x: {vertex.x}, y: {vertex.y}
+                                x: {contour.x + vertex.x}, y: { contour.x + vertex.y}
                                 </li>
                             ) )}
                             </ul>

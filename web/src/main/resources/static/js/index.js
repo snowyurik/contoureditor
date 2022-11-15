@@ -33938,9 +33938,9 @@
 	                React.createElement("span", { onClick: function () { _this.click(index); }, className: "contour-list__item-title" }, contour.title),
 	                React.createElement("ul", { className: "vertex-list" }, contour.vertexes.map(function (vertex, vertexIndex) { return (React.createElement("li", { key: vertexIndex, className: "vertex-list__item" },
 	                    "x: ",
-	                    vertex.x,
+	                    contour.x + vertex.x,
 	                    ", y: ",
-	                    vertex.y)); })))); }))));
+	                    contour.x + vertex.y)); })))); }))));
 	    };
 	    return ContourList;
 	}(React.Component));
@@ -66769,6 +66769,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	        this.props.setVertexPos(vertexIndex, event.target.attrs.x, event.target.attrs.y);
 	    };
 	    CanvasWrapper.prototype.handleDragMoveContour = function (event, contourIndex) {
+	        this.props.setContourDragPos(contourIndex, event.target.attrs.x, event.target.attrs.y);
 	        //         console.log("move contour", [event.target.attrs.x,  event.target.attrs.y]);
 	        //         let x = event.target.attrs.x;
 	        //         let y = event.target.attrs.y;
@@ -66785,20 +66786,14 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	        // problem is we are moving contour zero point together with vertexes
 	        // <Line x= > does not remain zero
 	        // Maybe
+	        // Maybe we can add Line.x/y to data model temporary and "collapse" contour back to normal on drag end?
 	    };
 	    CanvasWrapper.prototype.handleDragStartContour = function (event) {
 	        this.prevX = 0;
 	        this.prevY = 0;
 	    };
 	    CanvasWrapper.prototype.handleDragEndContour = function (event, contourIndex) {
-	        console.log("move contour 2", [event.target.attrs.x, event.target.attrs.y]);
-	        var x = event.target.attrs.x;
-	        var y = event.target.attrs.y;
-	        event.target.attrs.x = 0;
-	        event.target.attrs.y = 0;
-	        this.props.setContourPos(contourIndex, x, y);
-	        event.target.attrs.x = 0;
-	        event.target.attrs.y = 0;
+	        this.props.collapseContour(contourIndex);
 	    };
 	    CanvasWrapper.prototype.render = function () {
 	        var _this = this;
@@ -66811,7 +66806,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	                            points.push(vertex.x);
 	                            points.push(vertex.y);
 	                        });
-	                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, x: 0, y: 0, draggable: true }));
+	                        return (React.createElement(Line, { key: "line" + contourIndex, points: points, stroke: "black", strokeWidth: 2, closed: true, onDragStart: _this.handleDragStartContour, onDragMove: function (e) { return _this.handleDragMoveContour(e, contourIndex); }, onDragEnd: function (e) { return _this.handleDragEndContour(e, contourIndex); }, x: contour.x, y: contour.y, draggable: true }));
 	                    }),
 	                    this.props.state.contours.map(function (contour, contourIndex) {
 	                        return (React.createElement(Group, { key: contourIndex }, contourIndex === _this.props.state.selectedContour ?
@@ -66820,7 +66815,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	                                    5, 0,
 	                                    0, 5,
 	                                    -5, 0
-	                                ], x: vertex.x, y: vertex.y, fill: "#009999", stroke: "black", strokeWidth: 1, closed: true, onDragMove: function (e) { return _this.handleDragMoveVertex(e, vertexIndex); }, draggable: true })); }) : ""));
+	                                ], x: vertex.x + contour.x, y: vertex.y + contour.y, fill: "#009999", stroke: "black", strokeWidth: 1, closed: true, onDragMove: function (e) { return _this.handleDragMoveVertex(e, vertexIndex); }, draggable: true })); }) : ""));
 	                    })))));
 	    };
 	    return CanvasWrapper;
@@ -66928,7 +66923,8 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	        _this.setContours = _this.setContours.bind(_this);
 	        _this.selectContour = _this.selectContour.bind(_this);
 	        _this.setVertexPos = _this.setVertexPos.bind(_this);
-	        _this.setContourPos = _this.setContourPos.bind(_this);
+	        _this.setContourDragPos = _this.setContourDragPos.bind(_this);
+	        _this.collapseContour = _this.collapseContour.bind(_this);
 	        return _this;
 	    }
 	    App.prototype.setTool = function (tool) {
@@ -66940,12 +66936,20 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	            };
 	        });
 	    };
+	    App.prototype.sanitizeContours = function (contours) {
+	        for (var i = 0; i < contours.length; i++) {
+	            contours[i].x = 0;
+	            contours[i].y = 0;
+	        }
+	        return contours;
+	    };
 	    App.prototype.setContours = function (contours) {
+	        var _this = this;
 	        console.log("setContours");
 	        this.setState(function (prevState) {
 	            return {
 	                tool: prevState.tool,
-	                contours: contours,
+	                contours: _this.sanitizeContours(contours),
 	                selectedContour: prevState.selectedContour
 	            };
 	        });
@@ -66970,13 +66974,25 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	            return newState;
 	        });
 	    };
-	    App.prototype.setContourPos = function (contourIndex, x, y) {
+	    App.prototype.setContourDragPos = function (contourIndex, x, y) {
 	        this.setState(function (prevState) {
 	            var newState = prevState;
+	            newState.contours[contourIndex].x = x;
+	            newState.contours[contourIndex].y = y;
+	            return newState;
+	        });
+	    };
+	    App.prototype.collapseContour = function (contourIndex) {
+	        this.setState(function (prevState) {
+	            var newState = prevState;
+	            var x = newState.contours[contourIndex].x;
+	            var y = newState.contours[contourIndex].y;
 	            for (var i = 0; i < newState.contours[contourIndex].vertexes.length; i++) {
 	                newState.contours[contourIndex].vertexes[i].x += x;
 	                newState.contours[contourIndex].vertexes[i].y += y;
 	            }
+	            newState.contours[contourIndex].x = 0;
+	            newState.contours[contourIndex].y = 0;
 	            return newState;
 	        });
 	    };
@@ -66985,7 +67001,7 @@ For more info see: https://github.com/konvajs/react-konva/issues/194
 	            React.createElement(MainMenu, { setContours: this.setContours }),
 	            React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
 	            React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour }),
-	            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourPos: this.setContourPos })));
+	            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour })));
 	    };
 	    return App;
 	}(React.Component));

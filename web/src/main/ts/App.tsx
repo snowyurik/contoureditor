@@ -25,7 +25,8 @@ export class App extends React.Component<{},AppState> {
         this.setContours = this.setContours.bind(this);
         this.selectContour = this.selectContour.bind(this);
         this.setVertexPos = this.setVertexPos.bind(this);
-        this.setContourPos = this.setContourPos.bind(this);
+        this.setContourDragPos = this.setContourDragPos.bind(this);
+        this.collapseContour = this.collapseContour.bind(this);
     }
 
 
@@ -39,12 +40,20 @@ export class App extends React.Component<{},AppState> {
         });
     }
 
+    private sanitizeContours(contours:any) {
+        for(let i=0;i<contours.length;i++) {
+            contours[i].x = 0;
+            contours[i].y = 0;
+        }
+        return contours;
+    }
+
     public setContours(contours:any) {
         console.log("setContours");
         this.setState( prevState => {
             return {
                 tool: prevState.tool,
-                contours: contours,
+                contours: this.sanitizeContours(contours),
                 selectedContour: prevState.selectedContour,
             }
         });
@@ -71,13 +80,26 @@ export class App extends React.Component<{},AppState> {
             return newState;
         });
     }
-    public setContourPos(contourIndex:number, x:number, y:number) {
+    public setContourDragPos(contourIndex:number, x:number, y:number) {
         this.setState( prevState => {
             let newState = prevState;
+            newState.contours[contourIndex].x = x;
+            newState.contours[contourIndex].y = y;
+            return newState;
+        });
+    }
+
+    public collapseContour(contourIndex:number) {
+        this.setState( prevState => {
+            let newState = prevState;
+            let x = newState.contours[contourIndex].x;
+            let y = newState.contours[contourIndex].y;
             for(let i=0; i< newState.contours[contourIndex].vertexes.length; i++) {
                 newState.contours[contourIndex].vertexes[i].x += x;
                 newState.contours[contourIndex].vertexes[i].y += y;
             }
+            newState.contours[contourIndex].x = 0;
+            newState.contours[contourIndex].y = 0;
             return newState;
         });
     }
@@ -95,7 +117,8 @@ export class App extends React.Component<{},AppState> {
                 <CanvasWrapper state={this.state}
                     setContours={this.setContours}
                     setVertexPos={this.setVertexPos}
-                    setContourPos={this.setContourPos}
+                    setContourDragPos={this.setContourDragPos}
+                    collapseContour={this.collapseContour}
                     />
             </div>
         );
