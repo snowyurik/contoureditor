@@ -8,3 +8,34 @@ Create/Display/Edit/Delete closed contours.
  - ReactJS
  - React-Konva 
  `` npm install react-konva konva --save ``
+ 
+## Tests
+### Database
+```
+mvn -am -pl datalib test
+```
+### Web
+```
+mvn -am -pl web test
+```
+
+## Create user with command line tool first
+### Build cli
+```
+mvn clean install
+mvn -am -pl cli package
+```
+### Create user
+```
+cd cli
+./run-app.sh create username password
+```
+
+### Run web
+```
+./run-web.sh
+```
+this will build and aggregate js code from typescript code and then start spring app
+
+
+
