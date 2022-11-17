@@ -13,7 +13,7 @@ Create/Display/Edit/Delete closed contours.
 ```
 export CONTOUREDITOR_DATASOURCE_URL="jdbc:mysql://localhost:3306/contoureditor"
 export CONTOUREDITOR_DATASOURCE_USERNAME="contoureditor"
-export CONTOUREDITOR_DATASOURCE_USERNAME="contoureditor"
+export CONTOUREDITOR_DATASOURCE_PASSWORD="contoureditor"
 ```
  
 ## Tests
