@@ -9,6 +9,13 @@ Create/Display/Edit/Delete closed contours.
  - React-Konva 
  `` npm install react-konva konva --save ``
  
+## Set up database connection with environment variables
+```
+export CONTOUREDITOR_DATASOURCE_URL="jdbc:mysql://localhost:3306/contoureditor"
+export CONTOUREDITOR_DATASOURCE_USERNAME="contoureditor"
+export CONTOUREDITOR_DATASOURCE_USERNAME="contoureditor"
+```
+ 
 ## Tests
 ### Database
 ```
