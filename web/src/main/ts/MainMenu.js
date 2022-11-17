@@ -25,18 +25,7 @@ var MainMenu = /** @class */ (function (_super) {
         var requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify([
-                { title: "TestWebContour1WithVertexes", vertexes: [
-                        { x: 10, y: 10 },
-                        { x: 20, y: 10 },
-                        { x: 10, y: 20 },
-                    ] },
-                { title: "TestWebContour2WithVertexes", vertexes: [
-                        { x: 110, y: 110 },
-                        { x: 120, y: 110 },
-                        { x: 110, y: 220 },
-                    ] }
-            ])
+            body: JSON.stringify(this.props.contours)
         };
         fetch("/api/contour/list", requestOptions);
     };
@@ -45,8 +34,7 @@ var MainMenu = /** @class */ (function (_super) {
         console.log("load click");
         var requestOptions = {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' } //,
-            //             body: JSON.stringify({ title: 'React PUT Request Example' })
+            headers: { 'Content-Type': 'application/json' }
         };
         fetch("/api/contour/list", requestOptions)
             .then(function (response) { return response.json(); })
@@ -54,9 +42,7 @@ var MainMenu = /** @class */ (function (_super) {
             console.log("Load response received");
             console.log(data);
             _this.props.setContours(data);
-        }
-        //             this.setState({ postId: data.id })
-        );
+        });
     };
     MainMenu.prototype.render = function () {
         return (React.createElement("div", { className: "menu" },

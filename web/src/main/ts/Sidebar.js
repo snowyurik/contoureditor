@@ -25,7 +25,7 @@ var Sidebar = /** @class */ (function (_super) {
         return (React.createElement("div", { id: "sidebar" },
             React.createElement(CreateToolSidebar, { isActive: this.props.tool == "create" }),
             React.createElement(SelectToolSidebar, { isActive: this.props.tool == "select" }),
-            React.createElement(EditToolSidebar, { isActive: this.props.tool == "edit" }),
+            React.createElement(EditToolSidebar, { isActive: this.props.tool == "edit", removeSelectedContour: this.props.removeSelectedContour, activeContourTitle: this.props.activeContourTitle, setActiveContourTitle: this.props.setActiveContourTitle }),
             React.createElement(ContourList, { contours: this.props.contours, selectContour: this.props.selectContour, selectedContour: this.props.selectedContour, setTool: this.props.setTool })));
     };
     return Sidebar;

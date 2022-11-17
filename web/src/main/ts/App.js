@@ -23,10 +23,13 @@ import { Toolbar } from "./Toolbar";
 import { Sidebar } from "./Sidebar";
 import CanvasWrapper from "./CanvasWrapper";
 import { MainMenu } from "./MainMenu";
+import { Contour } from "./model/Contour";
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App(props) {
         var _this = _super.call(this, props) || this;
+        _this.history = [];
+        _this.historyIndex = 0;
         _this.state = {
             tool: "create",
             contours: [],
@@ -39,16 +42,46 @@ var App = /** @class */ (function (_super) {
         _this.setContourDragPos = _this.setContourDragPos.bind(_this);
         _this.collapseContour = _this.collapseContour.bind(_this);
         _this.addContour = _this.addContour.bind(_this);
+        _this.removeContour = _this.removeContour.bind(_this);
+        _this.removeSelectedContour = _this.removeSelectedContour.bind(_this);
+        _this.setActiveContourTitle = _this.setActiveContourTitle.bind(_this);
+        _this.getActiveContourTitle = _this.getActiveContourTitle.bind(_this);
+        _this.undo = _this.undo.bind(_this);
+        _this.redo = _this.redo.bind(_this);
         return _this;
     }
+    App.prototype.undo = function () {
+        if (this.history.length < 1
+            || this.historyIndex < 0 || this.historyIndex > this.history.length) {
+            return;
+        }
+        this.historyIndex++;
+        this.setState(this.history[this.historyIndex]);
+        console.log("undo", this.historyIndex, this.history);
+    };
+    App.prototype.redo = function () {
+        if (this.history.length < 1
+            || this.historyIndex < 1
+        //                 || this.historyIndex > this.history.length
+        ) {
+            return;
+        }
+        this.historyIndex--;
+        this.setState(this.history[this.historyIndex]);
+        console.log("redo", this.historyIndex, this.history);
+    };
+    App.prototype["do"] = function (newState) {
+        // drop data for redo, because we are doing something new
+        this.history.splice(0, this.historyIndex);
+        this.historyIndex = 0;
+        // store in history
+        this.setState(newState);
+        this.history.unshift(JSON.parse(JSON.stringify(this.state))); // full clone
+        console.log("do", this.historyIndex, this.history);
+    };
     App.prototype.setTool = function (tool) {
-        this.setState(function (prevState) {
-            return {
-                tool: tool,
-                contours: prevState.contours,
-                selectedContour: prevState.selectedContour
-            };
-        });
+        this["do"]({ tool: tool });
+        //         this.setState({ tool:tool });
     };
     App.prototype.sanitizeContours = function (contours) {
         for (var i = 0; i < contours.length; i++) {
@@ -58,39 +91,50 @@ var App = /** @class */ (function (_super) {
         return contours;
     };
     App.prototype.setContours = function (contours) {
-        var _this = this;
-        console.log("setContours");
-        this.setState(function (prevState) {
-            return {
-                tool: prevState.tool,
-                contours: _this.sanitizeContours(contours),
-                selectedContour: prevState.selectedContour
-            };
-        });
+        this["do"]({ contours: this.sanitizeContours(contours) });
     };
     App.prototype.addContour = function (vertexes) {
-        this.setState({
-            contours: __spreadArrays(this.state.contours, [{
-                    title: "New Contour " + this.state.contours.length,
-                    x: 0,
-                    y: 0,
-                    vertexes: vertexes
-                }])
+        this["do"]({
+            contours: __spreadArrays(this.state.contours, [new Contour("New Contour " + this.state.contours.length, vertexes)]),
+            tool: "edit",
+            selectedContour: this.state.contours.length
         });
-        this.setTool("edit");
-        this.selectContour(this.state.contours.length);
+        //         this.setTool("edit");
+        //         this.selectContour( this.state.contours.length );
+    };
+    App.prototype.removeContour = function (contourIndex) {
+        if (this.state.selectedContour < 0
+            && this.state.selectedContour >= this.state.contours.length) {
+            return;
+        }
+        var contours = this.state.contours;
+        contours.splice(contourIndex, 1);
+        this["do"]({ contours: contours });
+    };
+    App.prototype.removeSelectedContour = function () {
+        this.removeContour(this.state.selectedContour);
     };
     /**
     select contour and make it active
     */
     App.prototype.selectContour = function (index) {
-        this.setState(function (prevState) {
-            return {
-                tool: prevState.tool,
-                contours: prevState.contours,
-                selectedContour: index
-            };
-        });
+        this["do"]({ selectedContour: index });
+    };
+    App.prototype.setActiveContourTitle = function (title) {
+        if (this.state.selectedContour < 0
+            && this.state.selectedContour >= this.state.contours.length) {
+            return;
+        }
+        var contours = this.state.contours;
+        contours[this.state.selectedContour].title = title;
+        this["do"]({ contours: contours });
+    };
+    App.prototype.getActiveContourTitle = function () {
+        if (typeof this.state.contours[this.state.selectedContour] === 'undefined'
+            || typeof this.state.contours[this.state.selectedContour].title === 'undefined') {
+            return "";
+        }
+        return this.state.contours[this.state.selectedContour].title;
     };
     App.prototype.setVertexPos = function (vertexIndex, x, y) {
         this.setState(function (prevState) {
@@ -124,9 +168,9 @@ var App = /** @class */ (function (_super) {
     };
     App.prototype.render = function () {
         return (React.createElement("div", { id: "main-wrapper" },
-            React.createElement(MainMenu, { setContours: this.setContours }),
-            React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
-            React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour, setTool: this.setTool }),
+            React.createElement(MainMenu, { contours: this.state.contours, setContours: this.setContours }),
+            React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool, undo: this.undo, redo: this.redo }),
+            React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour, setTool: this.setTool, removeSelectedContour: this.removeSelectedContour, activeContourTitle: this.getActiveContourTitle(), setActiveContourTitle: this.setActiveContourTitle }),
             React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour, selectContour: this.selectContour, addContour: this.addContour })));
     };
     return App;

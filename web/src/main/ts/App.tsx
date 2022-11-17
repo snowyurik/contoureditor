@@ -4,14 +4,19 @@ import { Toolbar } from "./Toolbar";
 import { Sidebar } from "./Sidebar";
 import CanvasWrapper from "./CanvasWrapper";
 import { MainMenu } from "./MainMenu";
+import { Contour } from "./model/Contour";
+import { Vertex } from "./model/Vertex";
 
 interface AppState {
     tool: string,
-    contours: any,
+    contours: Contour[],
     selectedContour: number,
 }
 
 export class App extends React.Component<{},AppState> {
+
+    private history: any[] = [];
+    private historyIndex: number=0;
 
 
     public constructor(props) {
@@ -28,20 +33,51 @@ export class App extends React.Component<{},AppState> {
         this.setContourDragPos = this.setContourDragPos.bind(this);
         this.collapseContour = this.collapseContour.bind(this);
         this.addContour = this.addContour.bind(this);
+        this.removeContour = this.removeContour.bind(this);
+        this.removeSelectedContour = this.removeSelectedContour.bind(this);
+        this.setActiveContourTitle = this.setActiveContourTitle.bind(this);
+        this.getActiveContourTitle = this.getActiveContourTitle.bind(this);
+        this.undo = this.undo.bind(this);
+        this.redo = this.redo.bind(this);
     }
 
+    public undo() {
+        if( this.history.length < 1
+            || this.historyIndex < 0 || this.historyIndex > this.history.length
+        ) {
+            return;
+        }
+        this.historyIndex++;
+        this.setState( this.history[ this.historyIndex] );
+        console.log("undo", this.historyIndex, this.history);
+    }
+    public redo() {
+        if( this.history.length < 1
+                || this.historyIndex < 1
+//                 || this.historyIndex > this.history.length
+        ) {
+            return;
+        }
+        this.historyIndex--;
+        this.setState( this.history[ this.historyIndex ] );
+        console.log("redo", this.historyIndex, this.history);
+    }
+    public do( newState:any) {
+        // drop data for redo, because we are doing something new
+        this.history.splice(0, this.historyIndex);
+        this.historyIndex = 0;
+        // store in history
+        this.setState(newState);
+        this.history.unshift( JSON.parse(JSON.stringify(this.state)) ); // full clone
+        console.log("do", this.historyIndex, this.history);
+    }
 
     public setTool(tool:string) {
-        this.setState( prevState => {
-            return {
-                tool: tool,
-                contours: prevState.contours,
-                selectedContour: prevState.selectedContour,
-            };
-        });
+        this.do({ tool:tool });
+//         this.setState({ tool:tool });
     }
 
-    private sanitizeContours(contours:any) {
+    private sanitizeContours(contours:Contour[]) {
         for(let i=0;i<contours.length;i++) {
             contours[i].x = 0;
             contours[i].y = 0;
@@ -49,41 +85,60 @@ export class App extends React.Component<{},AppState> {
         return contours;
     }
 
-    public setContours(contours:any) {
-        console.log("setContours");
-        this.setState( prevState => {
-            return {
-                tool: prevState.tool,
-                contours: this.sanitizeContours(contours),
-                selectedContour: prevState.selectedContour,
-            }
-        });
+    public setContours(contours:Contour[]) {
+        this.do({ contours: this.sanitizeContours(contours) });
     }
 
-    public addContour(vertexes:any) {
-        this.setState({
-            contours: [ ...this.state.contours, {
-                title: "New Contour " + this.state.contours.length,
-                x: 0,
-                y: 0,
-                vertexes: vertexes
-            } ]
+    public addContour(vertexes:Vertex[]) {
+        this.do({
+            contours: [ ...this.state.contours, new Contour( "New Contour " + this.state.contours.length, vertexes ) ],
+            tool: "edit",
+            selectedContour: this.state.contours.length
         });
-        this.setTool("edit");
-        this.selectContour( this.state.contours.length );
+//         this.setTool("edit");
+//         this.selectContour( this.state.contours.length );
+    }
+
+    public removeContour(contourIndex:number) {
+        if( this.state.selectedContour < 0
+            && this.state.selectedContour >= this.state.contours.length
+        ) {
+            return;
+        }
+        let contours = this.state.contours;
+        contours.splice(contourIndex,1);
+        this.do({ contours: contours });
+    }
+
+    public removeSelectedContour() {
+        this.removeContour( this.state.selectedContour );
     }
 
     /**
     select contour and make it active
     */
     public selectContour(index:number) {
-        this.setState( prevState => {
-            return {
-                tool: prevState.tool,
-                contours: prevState.contours,
-                selectedContour: index,
-            }
-        });
+        this.do({ selectedContour: index });
+    }
+
+    public setActiveContourTitle(title:string) {
+        if( this.state.selectedContour < 0
+            && this.state.selectedContour >= this.state.contours.length
+        ) {
+            return;
+        }
+        let contours = this.state.contours;
+        contours[this.state.selectedContour].title = title;
+        this.do({ contours: contours });
+    }
+
+    public getActiveContourTitle():string {
+        if( typeof this.state.contours[this.state.selectedContour] === 'undefined'
+            || typeof this.state.contours[this.state.selectedContour].title === 'undefined'
+        ) {
+            return "";
+        }
+        return this.state.contours[this.state.selectedContour].title;
     }
 
     public setVertexPos(vertexIndex:number, x:number, y:number) {
@@ -121,13 +176,21 @@ export class App extends React.Component<{},AppState> {
     public render() {
         return (
             <div id="main-wrapper">
-                <MainMenu setContours={this.setContours} />
-                <Toolbar tool={this.state.tool} setTool={this.setTool} />
+                <MainMenu contours={this.state.contours}
+                    setContours={this.setContours} />
+                <Toolbar tool={this.state.tool}
+                    setTool={this.setTool}
+                    undo={this.undo}
+                    redo={this.redo}
+                    />
                 <Sidebar tool={this.state.tool}
                     contours={this.state.contours}
                     selectContour={this.selectContour}
                     selectedContour={this.state.selectedContour}
                     setTool={this.setTool}
+                    removeSelectedContour={this.removeSelectedContour}
+                    activeContourTitle={this.getActiveContourTitle()}
+                    setActiveContourTitle={this.setActiveContourTitle}
                     />
                 <CanvasWrapper state={this.state}
                     setContours={this.setContours}

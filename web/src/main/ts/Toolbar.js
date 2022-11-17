@@ -12,7 +12,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import React from "react";
-import { ToolbarButton } from "./ToolbarButton";
+import { ToolbarToolButton } from "./ToolbarToolButton";
+import { ToolbarActionButton } from "./ToolbarActionButton";
 var Toolbar = /** @class */ (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -20,10 +21,10 @@ var Toolbar = /** @class */ (function (_super) {
     }
     Toolbar.prototype.render = function () {
         return (React.createElement("div", { id: "toolbar" },
-            React.createElement(ToolbarButton, { label: "Undo", icon: "fa-rotate-left" }),
-            React.createElement(ToolbarButton, { label: "Redo", icon: "fa-rotate-right" }),
-            React.createElement(ToolbarButton, { label: "Edit", icon: "fa-up-down-left-right", name: "edit", currentTool: this.props.tool, setTool: this.props.setTool }),
-            React.createElement(ToolbarButton, { label: "New Contour", icon: "fa-plus", name: "create", currentTool: this.props.tool, setTool: this.props.setTool })));
+            React.createElement(ToolbarActionButton, { label: "Undo", icon: "fa-rotate-left", onClick: this.props.undo }),
+            React.createElement(ToolbarActionButton, { label: "Redo", icon: "fa-rotate-right", onClick: this.props.redo }),
+            React.createElement(ToolbarToolButton, { label: "Edit", icon: "fa-up-down-left-right", name: "edit", currentTool: this.props.tool, setTool: this.props.setTool }),
+            React.createElement(ToolbarToolButton, { label: "New Contour", icon: "fa-plus", name: "create", currentTool: this.props.tool, setTool: this.props.setTool })));
     };
     return Toolbar;
 }(React.Component));

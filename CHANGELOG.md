@@ -3,6 +3,7 @@
 ## [2022-11-17]
 ### Added
  - Creating new contour
+ - Undo/Redo
 
 ## [2022-11-15]
 ### Added

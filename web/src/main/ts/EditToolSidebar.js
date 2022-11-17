@@ -12,17 +12,25 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import React from "react";
-import { BaseToolSidebar } from "./BaseToolSidebar";
 var EditToolSidebar = /** @class */ (function (_super) {
     __extends(EditToolSidebar, _super);
-    function EditToolSidebar() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function EditToolSidebar(props) {
+        return _super.call(this, props) || this;
     }
     EditToolSidebar.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
             React.createElement("h3", null, "Edit Tool"),
-            React.createElement("p", null, "Drag and drop contours and vertexes of selected contour")));
+            React.createElement("p", null, "Drag and drop contours and vertexes of selected contour"),
+            React.createElement("div", null,
+                React.createElement("h4", null, "With selected contour:"),
+                React.createElement("label", null, "Change title"),
+                React.createElement("input", { type: "text", value: this.props.activeContourTitle, onChange: function (e) { return _this.props.setActiveContourTitle(e.target.value); } }),
+                React.createElement("button", { onClick: this.props.removeSelectedContour }, "Remove Selected Contour"))));
+    };
+    EditToolSidebar.defaultProps = {
+        isActive: false
     };
     return EditToolSidebar;
-}(BaseToolSidebar));
+}(React.Component));
 export { EditToolSidebar };

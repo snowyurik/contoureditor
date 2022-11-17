@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import { Contour } from "./model/Contour";
 
 export interface MainMenuProps {
-    setContours: (contours:any) => void;
+    contours: Contour[];
+    setContours: (contours:Contour[]) => void;
 }
 
 export class MainMenu extends React.Component<MainMenuProps,{}> {
@@ -18,18 +20,7 @@ export class MainMenu extends React.Component<MainMenuProps,{}> {
         let requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify([
-                { title: "TestWebContour1WithVertexes", vertexes: [
-                    { x: 10, y: 10 },
-                    { x: 20, y: 10 },
-                    { x: 10, y: 20 },
-                ]},
-                { title: "TestWebContour2WithVertexes", vertexes: [
-                    { x: 110, y: 110 },
-                    { x: 120, y: 110 },
-                    { x: 110, y: 220 },
-                ]}
-            ])
+            body: JSON.stringify( this.props.contours )
         };
         fetch("/api/contour/list", requestOptions);
     }
@@ -38,8 +29,7 @@ export class MainMenu extends React.Component<MainMenuProps,{}> {
         console.log("load click");
         let requestOptions = {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }//,
-//             body: JSON.stringify({ title: 'React PUT Request Example' })
+            headers: { 'Content-Type': 'application/json' }
         };
         fetch("/api/contour/list", requestOptions)
             .then(response => response.json())
@@ -47,9 +37,7 @@ export class MainMenu extends React.Component<MainMenuProps,{}> {
                 console.log("Load response received");
                 console.log( data );
                 this.props.setContours( data );
-            }
-//             this.setState({ postId: data.id })
-            );
+            });
     }
 
     public render() {

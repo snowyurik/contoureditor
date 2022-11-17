@@ -12,14 +12,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import React from "react";
-var BaseToolSidebar = /** @class */ (function (_super) {
-    __extends(BaseToolSidebar, _super);
-    function BaseToolSidebar() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var ToolbarActionButton = /** @class */ (function (_super) {
+    __extends(ToolbarActionButton, _super);
+    function ToolbarActionButton(props) {
+        return _super.call(this, props) || this;
     }
-    BaseToolSidebar.defaultProps = {
-        isActive: false
+    ToolbarActionButton.prototype.render = function () {
+        return (React.createElement("button", { className: "toolbar-button", onClick: this.props.onClick },
+            React.createElement("i", { className: "fa-solid " + this.props.icon }),
+            this.props.label));
     };
-    return BaseToolSidebar;
+    return ToolbarActionButton;
 }(React.Component));
-export { BaseToolSidebar };
+export { ToolbarActionButton };

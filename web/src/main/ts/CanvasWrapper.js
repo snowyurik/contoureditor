@@ -78,7 +78,6 @@ var CanvasWrapper = /** @class */ (function (_super) {
         if (this.props.state.tool !== "create") {
             return;
         }
-        console.log("stageMouseDown", event);
         var pos = event.target.getStage().getPointerPosition();
         this.setState({
             points: __spreadArrays(this.state.points, [{ x: pos.x, y: pos.y }]),
@@ -90,7 +89,6 @@ var CanvasWrapper = /** @class */ (function (_super) {
             || vertexIndex !== 0) {
             return;
         }
-        console.log("first vertex clicked");
         event.cancelBubble = true;
         this.props.addContour(this.state.points);
         this.setState({ points: [] });

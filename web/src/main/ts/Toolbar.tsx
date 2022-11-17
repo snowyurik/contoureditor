@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import { ToolbarButton } from "./ToolbarButton";
-
+import { ToolbarToolButton } from "./ToolbarToolButton";
+import { ToolbarActionButton } from "./ToolbarActionButton";
 
 export interface ToolbarProps {
     tool: string;
     setTool: (tool:string) => void;
+    undo: ()=>void;
+    redo: ()=>void;
 }
 
 export class Toolbar extends React.Component<ToolbarProps,{}> {
@@ -13,10 +15,10 @@ export class Toolbar extends React.Component<ToolbarProps,{}> {
     public render() {
         return (
             <div id="toolbar">
-                <ToolbarButton label="Undo" icon="fa-rotate-left" />
-                <ToolbarButton label="Redo" icon="fa-rotate-right" />
-                <ToolbarButton label="Edit" icon="fa-up-down-left-right" name="edit" currentTool={this.props.tool} setTool={this.props.setTool}/>
-                <ToolbarButton label="New Contour" icon="fa-plus"  name="create" currentTool={this.props.tool} setTool={this.props.setTool}/>
+                <ToolbarActionButton label="Undo" icon="fa-rotate-left" onClick={this.props.undo}/>
+                <ToolbarActionButton label="Redo" icon="fa-rotate-right" onClick={this.props.redo}/>
+                <ToolbarToolButton label="Edit" icon="fa-up-down-left-right" name="edit" currentTool={this.props.tool} setTool={this.props.setTool}/>
+                <ToolbarToolButton label="New Contour" icon="fa-plus"  name="create" currentTool={this.props.tool} setTool={this.props.setTool}/>
             </div>
         );
     }
