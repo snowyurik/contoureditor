@@ -20,6 +20,7 @@ var ContourList = /** @class */ (function (_super) {
         return _this;
     }
     ContourList.prototype.click = function (index) {
+        this.props.setTool("edit");
         this.props.selectContour(index);
     };
     ContourList.prototype.render = function () {

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [2022-11-17]
+### Added
+ - Creating new contour
+
 ## [2022-11-15]
 ### Added
  - Edit contour: move individual vertexes

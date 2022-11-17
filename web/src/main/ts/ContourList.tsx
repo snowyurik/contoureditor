@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
 interface ContourListProps {
-    contours: any,
-    selectContour: (index:number) => void,
-    selectedContour: number,
+    contours: any;
+    selectContour: (index:number) => void;
+    setTool: (tool:string) => void;
+    selectedContour: number;
 }
 
 export class ContourList extends React.Component<ContourListProps,{}>{
@@ -14,6 +15,7 @@ export class ContourList extends React.Component<ContourListProps,{}>{
     }
 
     public click(index:number) {
+        this.props.setTool("edit");
         this.props.selectContour(index);
     }
 

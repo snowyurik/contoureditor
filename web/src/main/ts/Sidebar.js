@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import React from "react";
 import { CreateToolSidebar } from "./CreateToolSidebar";
-import { MoveToolSidebar } from "./MoveToolSidebar";
+import { EditToolSidebar } from "./EditToolSidebar";
 import { SelectToolSidebar } from "./SelectToolSidebar";
 import { ContourList } from "./ContourList";
 var Sidebar = /** @class */ (function (_super) {
@@ -25,8 +25,8 @@ var Sidebar = /** @class */ (function (_super) {
         return (React.createElement("div", { id: "sidebar" },
             React.createElement(CreateToolSidebar, { isActive: this.props.tool == "create" }),
             React.createElement(SelectToolSidebar, { isActive: this.props.tool == "select" }),
-            React.createElement(MoveToolSidebar, { isActive: this.props.tool == "move" }),
-            React.createElement(ContourList, { contours: this.props.contours, selectContour: this.props.selectContour, selectedContour: this.props.selectedContour })));
+            React.createElement(EditToolSidebar, { isActive: this.props.tool == "edit" }),
+            React.createElement(ContourList, { contours: this.props.contours, selectContour: this.props.selectContour, selectedContour: this.props.selectedContour, setTool: this.props.setTool })));
     };
     return Sidebar;
 }(React.Component));

@@ -22,10 +22,8 @@ var Toolbar = /** @class */ (function (_super) {
         return (React.createElement("div", { id: "toolbar" },
             React.createElement(ToolbarButton, { label: "Undo", icon: "fa-rotate-left" }),
             React.createElement(ToolbarButton, { label: "Redo", icon: "fa-rotate-right" }),
-            React.createElement(ToolbarButton, { label: "Select", icon: "fa-arrow-pointer", name: "select", currentTool: this.props.tool, setTool: this.props.setTool }),
-            React.createElement(ToolbarButton, { label: "Move", icon: "fa-up-down-left-right", name: "move", currentTool: this.props.tool, setTool: this.props.setTool }),
-            React.createElement(ToolbarButton, { label: "New Contour", icon: "fa-plus", name: "create", currentTool: this.props.tool, setTool: this.props.setTool }),
-            React.createElement(ToolbarButton, { label: "Show Labels", icon: "fa-eye" })));
+            React.createElement(ToolbarButton, { label: "Edit", icon: "fa-up-down-left-right", name: "edit", currentTool: this.props.tool, setTool: this.props.setTool }),
+            React.createElement(ToolbarButton, { label: "New Contour", icon: "fa-plus", name: "create", currentTool: this.props.tool, setTool: this.props.setTool })));
     };
     return Toolbar;
 }(React.Component));

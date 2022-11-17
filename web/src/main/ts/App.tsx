@@ -27,6 +27,7 @@ export class App extends React.Component<{},AppState> {
         this.setVertexPos = this.setVertexPos.bind(this);
         this.setContourDragPos = this.setContourDragPos.bind(this);
         this.collapseContour = this.collapseContour.bind(this);
+        this.addContour = this.addContour.bind(this);
     }
 
 
@@ -57,6 +58,19 @@ export class App extends React.Component<{},AppState> {
                 selectedContour: prevState.selectedContour,
             }
         });
+    }
+
+    public addContour(vertexes:any) {
+        this.setState({
+            contours: [ ...this.state.contours, {
+                title: "New Contour " + this.state.contours.length,
+                x: 0,
+                y: 0,
+                vertexes: vertexes
+            } ]
+        });
+        this.setTool("edit");
+        this.selectContour( this.state.contours.length );
     }
 
     /**
@@ -113,6 +127,7 @@ export class App extends React.Component<{},AppState> {
                     contours={this.state.contours}
                     selectContour={this.selectContour}
                     selectedContour={this.state.selectedContour}
+                    setTool={this.setTool}
                     />
                 <CanvasWrapper state={this.state}
                     setContours={this.setContours}
@@ -120,6 +135,7 @@ export class App extends React.Component<{},AppState> {
                     setContourDragPos={this.setContourDragPos}
                     collapseContour={this.collapseContour}
                     selectContour={this.selectContour}
+                    addContour={this.addContour}
                     />
             </div>
         );

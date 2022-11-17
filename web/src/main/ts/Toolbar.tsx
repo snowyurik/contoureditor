@@ -15,12 +15,10 @@ export class Toolbar extends React.Component<ToolbarProps,{}> {
             <div id="toolbar">
                 <ToolbarButton label="Undo" icon="fa-rotate-left" />
                 <ToolbarButton label="Redo" icon="fa-rotate-right" />
-                <ToolbarButton label="Select" icon="fa-arrow-pointer" name="select" currentTool={this.props.tool} setTool={this.props.setTool}/>
-                <ToolbarButton label="Move" icon="fa-up-down-left-right" name="move" currentTool={this.props.tool} setTool={this.props.setTool}/>
+                <ToolbarButton label="Edit" icon="fa-up-down-left-right" name="edit" currentTool={this.props.tool} setTool={this.props.setTool}/>
                 <ToolbarButton label="New Contour" icon="fa-plus"  name="create" currentTool={this.props.tool} setTool={this.props.setTool}/>
-                <ToolbarButton label="Show Labels" icon="fa-eye" />
-
             </div>
         );
     }
+//      <!-- ToolbarButton label="Select" icon="fa-arrow-pointer" name="select" currentTool={this.props.tool} setTool={this.props.setTool}/ -->
 }

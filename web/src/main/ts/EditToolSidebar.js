@@ -11,21 +11,18 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-// namespace contoureditor {
 import React from "react";
 import { BaseToolSidebar } from "./BaseToolSidebar";
-var CreateToolSidebar = /** @class */ (function (_super) {
-    __extends(CreateToolSidebar, _super);
-    function CreateToolSidebar() {
+var EditToolSidebar = /** @class */ (function (_super) {
+    __extends(EditToolSidebar, _super);
+    function EditToolSidebar() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    CreateToolSidebar.prototype.render = function () {
+    EditToolSidebar.prototype.render = function () {
         return (React.createElement("div", { className: "tool-sidebar tool-sidebar__create " + (this.props.isActive ? 'tool-sidebar__active' : '') },
-            React.createElement("h3", null, "Create Tool"),
-            React.createElement("p", null, "Click on canvas to create vertexes of new contour."),
-            React.createElement("p", null, "Click on first vertex to finish creation.")));
+            React.createElement("h3", null, "Edit Tool"),
+            React.createElement("p", null, "Drag and drop contours and vertexes of selected contour")));
     };
-    return CreateToolSidebar;
+    return EditToolSidebar;
 }(BaseToolSidebar));
-export { CreateToolSidebar };
-// }
+export { EditToolSidebar };

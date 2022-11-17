@@ -11,6 +11,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 import React from "react";
 import { Toolbar } from "./Toolbar";
 import { Sidebar } from "./Sidebar";
@@ -31,6 +38,7 @@ var App = /** @class */ (function (_super) {
         _this.setVertexPos = _this.setVertexPos.bind(_this);
         _this.setContourDragPos = _this.setContourDragPos.bind(_this);
         _this.collapseContour = _this.collapseContour.bind(_this);
+        _this.addContour = _this.addContour.bind(_this);
         return _this;
     }
     App.prototype.setTool = function (tool) {
@@ -59,6 +67,18 @@ var App = /** @class */ (function (_super) {
                 selectedContour: prevState.selectedContour
             };
         });
+    };
+    App.prototype.addContour = function (vertexes) {
+        this.setState({
+            contours: __spreadArrays(this.state.contours, [{
+                    title: "New Contour " + this.state.contours.length,
+                    x: 0,
+                    y: 0,
+                    vertexes: vertexes
+                }])
+        });
+        this.setTool("edit");
+        this.selectContour(this.state.contours.length);
     };
     /**
     select contour and make it active
@@ -106,8 +126,8 @@ var App = /** @class */ (function (_super) {
         return (React.createElement("div", { id: "main-wrapper" },
             React.createElement(MainMenu, { setContours: this.setContours }),
             React.createElement(Toolbar, { tool: this.state.tool, setTool: this.setTool }),
-            React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour }),
-            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour, selectContour: this.selectContour })));
+            React.createElement(Sidebar, { tool: this.state.tool, contours: this.state.contours, selectContour: this.selectContour, selectedContour: this.state.selectedContour, setTool: this.setTool }),
+            React.createElement(CanvasWrapper, { state: this.state, setContours: this.setContours, setVertexPos: this.setVertexPos, setContourDragPos: this.setContourDragPos, collapseContour: this.collapseContour, selectContour: this.selectContour, addContour: this.addContour })));
     };
     return App;
 }(React.Component));
